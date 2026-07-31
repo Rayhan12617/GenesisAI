@@ -3,72 +3,101 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Genesis AI ($GEN) | AI Protocol on Robinhood Chain</title>
+  <title>Genesis AI ($GEN) | Next-Gen AI Protocol on Robinhood Chain</title>
+  
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@500;600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@500;600;700&family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- AOS Animation CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+
   <style>
     :root {
-      --bg: #030712;
-      --card-bg: rgba(15, 23, 42, 0.75);
+      --bg: #05070a;
+      --card-bg: rgba(15, 23, 42, 0.65);
+      --card-border: rgba(0, 240, 255, 0.15);
       --primary: #00f0ff;
-      --secondary: #8b5cf6;
-      --accent: #ec4899;
+      --secondary: #7c3aed;
+      --accent: #f43f5e;
+      --gold: #fbbf24;
       --text: #f8fafc;
       --text-dim: #94a3b8;
-      --gold: #fbbf24;
-      --border: rgba(0, 240, 255, 0.2);
     }
 
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
+      scroll-behavior: smooth;
     }
 
     body {
       background-color: var(--bg);
       color: var(--text);
-      font-family: 'Inter', sans-serif;
+      font-family: 'Plus Jakarta Sans', sans-serif;
       overflow-x: hidden;
       line-height: 1.6;
     }
 
-    /* Cyber BG Glows */
-    .glow-1 {
+    /* Canvas Particle Background */
+    #bgCanvas {
       position: fixed;
-      top: -10%;
-      left: -10%;
-      width: 500px;
-      height: 500px;
-      background: radial-gradient(circle, rgba(0, 240, 255, 0.15) 0%, rgba(0,0,0,0) 70%);
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: -2;
       pointer-events: none;
-      z-index: -1;
     }
 
-    .glow-2 {
+    /* Mouse Glow Effect */
+    .mouse-glow {
       position: fixed;
-      bottom: -10%;
-      right: -10%;
-      width: 500px;
-      height: 500px;
-      background: radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, rgba(0,0,0,0) 70%);
+      width: 400px;
+      height: 400px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(0, 240, 255, 0.08) 0%, rgba(0,0,0,0) 70%);
       pointer-events: none;
       z-index: -1;
+      transform: translate(-50%, -50%);
+      transition: width 0.2s, height 0.2s;
+    }
+
+    /* Glassmorphism Styles */
+    .glass-panel {
+      background: var(--card-bg);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .glass-panel:hover {
+      border-color: rgba(0, 240, 255, 0.4);
+      box-shadow: 0 0 30px rgba(0, 240, 255, 0.2);
     }
 
     /* Navigation */
     header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding: 16px 5%;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 16px 6%;
-      background: rgba(3, 7, 18, 0.85);
+      background: rgba(5, 7, 10, 0.8);
       backdrop-filter: blur(16px);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      border-bottom: 1px solid var(--border);
+      z-index: 1000;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     }
 
     .brand {
@@ -78,16 +107,15 @@
       text-decoration: none;
     }
 
-    .logo-img {
-      width: 44px;
-      height: 44px;
+    .brand img {
+      width: 42px;
+      height: 42px;
       border-radius: 50%;
-      object-fit: cover;
       border: 2px solid var(--primary);
-      box-shadow: 0 0 12px rgba(0, 240, 255, 0.5);
+      box-shadow: 0 0 15px rgba(0, 240, 255, 0.5);
     }
 
-    .brand-text {
+    .brand-title {
       font-family: 'Orbitron', sans-serif;
       font-size: 22px;
       font-weight: 900;
@@ -97,147 +125,291 @@
       -webkit-text-fill-color: transparent;
     }
 
-    .nav-right {
+    .nav-links {
       display: flex;
-      align-items: center;
-      gap: 15px;
+      gap: 25px;
+      list-style: none;
     }
 
-    .btn-action {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 10px 20px;
+    .nav-links a {
+      color: var(--text-dim);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary);
+      text-shadow: 0 0 10px var(--primary);
+    }
+
+    .btn-glow {
+      padding: 10px 24px;
       border-radius: 30px;
       background: linear-gradient(135deg, var(--primary), var(--secondary));
       color: #fff;
-      text-decoration: none;
       font-family: 'Rajdhani', sans-serif;
       font-weight: 700;
-      font-size: 15px;
+      font-size: 16px;
+      border: none;
       cursor: pointer;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      box-shadow: 0 0 15px rgba(0, 240, 255, 0.3);
-      transition: all 0.3s;
+      box-shadow: 0 0 20px rgba(0, 240, 255, 0.4);
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
     }
 
-    .btn-action:hover {
+    .btn-glow:hover {
       transform: translateY(-2px);
-      box-shadow: 0 0 25px rgba(139, 92, 246, 0.6);
+      box-shadow: 0 0 30px rgba(124, 58, 237, 0.8);
     }
 
-    /* Cover Banner */
-    .hero-banner {
-      width: 100%;
-      max-width: 1200px;
-      margin: 20px auto 0;
-      padding: 0 20px;
-    }
-
-    .banner-wrapper {
+    /* Hero Section */
+    .hero-section {
+      min-height: 100vh;
+      padding: 140px 5% 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
       position: relative;
-      width: 100%;
-      height: 280px;
-      border-radius: 24px;
-      overflow: hidden;
-      border: 1px solid var(--border);
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
     }
 
-    .banner-img {
+    .hero-bg-cover {
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      overflow: hidden;
+    }
+
+    .hero-bg-cover img {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      opacity: 0.15;
+      filter: blur(4px);
     }
 
-    .banner-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(0deg, rgba(3, 7, 18, 0.95) 0%, rgba(3, 7, 18, 0.2) 100%);
+    .hero-content {
+      max-width: 650px;
     }
 
-    /* Main Sections Layout */
-    .hero {
-      text-align: center;
-      padding: 30px 20px 20px;
-      max-width: 900px;
-      margin: 0 auto;
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 16px;
+      border-radius: 20px;
+      background: rgba(0, 240, 255, 0.1);
+      border: 1px solid var(--primary);
+      color: var(--primary);
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 20px;
     }
 
     .hero h1 {
       font-family: 'Orbitron', sans-serif;
-      font-size: 42px;
+      font-size: 56px;
       font-weight: 900;
-      margin-bottom: 15px;
-      background: linear-gradient(180deg, #ffffff 30%, var(--primary) 100%);
+      line-height: 1.1;
+      margin-bottom: 20px;
+      background: linear-gradient(180deg, #ffffff 40%, var(--primary) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
 
     .hero p {
-      font-size: 16px;
+      font-size: 18px;
       color: var(--text-dim);
+      margin-bottom: 35px;
     }
 
-    /* DEX Swap & Staking Grid */
-    .dex-grid {
+    .hero-btns {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .btn-outline {
+      padding: 10px 24px;
+      border-radius: 30px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--card-border);
+      color: #fff;
+      font-family: 'Rajdhani', sans-serif;
+      font-weight: 700;
+      font-size: 16px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+
+    .btn-outline:hover {
+      background: rgba(255, 255, 255, 0.15);
+      border-color: var(--primary);
+    }
+
+    /* Hologram Visual Container */
+    .hero-visual {
+      position: relative;
+      width: 420px;
+      height: 420px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .holo-ring {
+      position: absolute;
+      border-radius: 50%;
+      border: 2px dashed var(--primary);
+      animation: rotateRing 20s linear infinite;
+    }
+
+    .holo-ring:nth-child(1) { width: 100%; height: 100%; opacity: 0.3; }
+    .holo-ring:nth-child(2) { width: 80%; height: 80%; border-color: var(--secondary); animation-duration: 15s; animation-direction: reverse; }
+
+    @keyframes rotateRing {
+      100% { transform: rotate(360deg); }
+    }
+
+    .holo-core {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 3px solid var(--primary);
+      box-shadow: 0 0 50px rgba(0, 240, 255, 0.6);
+      animation: floatCore 4s ease-in-out infinite;
+    }
+
+    .holo-core img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    @keyframes floatCore {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-15px); }
+    }
+
+    /* Live Dashboard Counters */
+    .stats-section {
+      padding: 40px 5%;
+      margin-top: -40px;
+    }
+
+    .stats-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 20px;
+      padding: 30px;
+    }
+
+    .stat-card {
+      text-align: center;
+    }
+
+    .stat-number {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 26px;
+      font-weight: 900;
+      color: var(--primary);
+      margin-bottom: 5px;
+    }
+
+    .stat-label {
+      font-size: 13px;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* Common Section Formatting */
+    .section-title {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    .section-title h2 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 36px;
+      font-weight: 900;
+      color: #fff;
+    }
+
+    .section-title p {
+      color: var(--text-dim);
+      font-size: 16px;
+    }
+
+    /* AI Features Grid */
+    .features-section { padding: 80px 5%; }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 25px;
+    }
+
+    .feature-card {
+      padding: 30px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .feature-icon {
+      font-size: 36px;
+      color: var(--primary);
+      margin-bottom: 20px;
+    }
+
+    .feature-card h3 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+
+    .feature-card p {
+      color: var(--text-dim);
+      font-size: 14px;
+    }
+
+    /* Swap & Staking Layout */
+    .defi-section { padding: 80px 5%; }
+    .defi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
       gap: 30px;
       max-width: 1100px;
-      margin: 40px auto;
-      padding: 0 20px;
+      margin: 0 auto;
     }
 
-    .dex-card {
-      background: var(--card-bg);
-      border-radius: 24px;
-      border: 1px solid var(--border);
-      padding: 30px;
-      backdrop-filter: blur(16px);
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
-    }
-
-    .dex-card h2 {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 22px;
-      color: #fff;
-      margin-bottom: 20px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    /* Swap Inputs */
     .swap-box {
-      background: rgba(3, 7, 18, 0.7);
+      background: rgba(3, 7, 18, 0.8);
       border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: 16px;
       padding: 16px;
       margin-bottom: 12px;
     }
 
-    .swap-label {
-      display: flex;
-      justify-content: space-between;
-      font-size: 12px;
-      color: var(--text-dim);
-      margin-bottom: 8px;
-    }
-
     .swap-input-row {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      margin-top: 8px;
     }
 
     .swap-input {
       background: transparent;
       border: none;
       color: #fff;
-      font-size: 22px;
+      font-size: 24px;
       font-weight: 700;
-      width: 60%;
+      width: 50%;
       outline: none;
       font-family: 'Orbitron', sans-serif;
     }
@@ -253,451 +425,777 @@
       font-size: 14px;
     }
 
-    .token-icon {
-      width: 22px;
-      height: 22px;
-      border-radius: 50%;
+    .token-icon { width: 22px; height: 22px; border-radius: 50%; }
+
+    /* Mini Game Section */
+    .game-section { padding: 80px 5%; text-align: center; }
+    .game-container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 25px;
+      position: relative;
     }
 
-    .swap-arrow {
-      text-align: center;
-      margin: -6px 0;
-      font-size: 18px;
-      color: var(--primary);
-    }
-
-    .btn-swap {
-      width: 100%;
-      padding: 16px;
-      border-radius: 14px;
-      background: linear-gradient(135deg, var(--primary), var(--secondary));
-      color: white;
-      border: none;
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 18px;
-      font-weight: 700;
-      cursor: pointer;
-      margin-top: 10px;
-      box-shadow: 0 0 20px rgba(0, 240, 255, 0.3);
-      transition: all 0.3s;
-    }
-
-    .btn-swap:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 0 30px rgba(139, 92, 246, 0.5);
-    }
-
-    /* Staking Badge */
-    .apy-badge {
-      background: linear-gradient(90deg, rgba(251, 191, 36, 0.2), rgba(236, 72, 153, 0.2));
-      border: 1px solid var(--gold);
-      color: var(--gold);
-      padding: 8px 16px;
-      border-radius: 12px;
-      font-family: 'Orbitron', sans-serif;
-      font-size: 18px;
-      font-weight: bold;
-      text-align: center;
-      margin-bottom: 20px;
-    }
-
-    /* Game Section */
-    .game-section {
-      max-width: 1100px;
-      margin: 40px auto 80px;
-      padding: 0 20px;
-    }
-
-    .game-card {
-      background: var(--card-bg);
-      border-radius: 24px;
-      border: 1px solid var(--border);
-      padding: 30px;
-      backdrop-filter: blur(16px);
-      text-align: center;
-    }
-
-    .canvas-wrapper {
+    .game-canvas-wrapper {
       position: relative;
       width: 100%;
-      max-width: 750px;
-      margin: 20px auto 0;
+      height: 400px;
       border-radius: 16px;
       overflow: hidden;
-      border: 2px solid rgba(0, 240, 255, 0.3);
-      background: #050a14;
+      border: 2px solid var(--primary);
+      background: #020408;
+      margin-top: 20px;
     }
 
     #gameCanvas {
       width: 100%;
-      height: 380px;
+      height: 100%;
       display: block;
       cursor: crosshair;
     }
 
-    /* Modal Wallet */
+    .game-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(5, 7, 10, 0.9);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 10;
+      padding: 20px;
+    }
+
+    .game-overlay input {
+      padding: 12px 20px;
+      border-radius: 25px;
+      border: 1px solid var(--primary);
+      background: rgba(255, 255, 255, 0.05);
+      color: #fff;
+      font-family: 'Orbitron', sans-serif;
+      text-align: center;
+      width: 80%;
+      max-width: 380px;
+      margin-bottom: 15px;
+      outline: none;
+    }
+
+    /* Roadmap Grid */
+    .roadmap-section { padding: 80px 5%; }
+    .roadmap-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 20px;
+    }
+
+    .roadmap-card h4 {
+      font-family: 'Orbitron', sans-serif;
+      color: var(--primary);
+      margin-bottom: 10px;
+    }
+
+    .roadmap-card ul {
+      list-style: none;
+      color: var(--text-dim);
+      font-size: 14px;
+    }
+
+    .roadmap-card ul li { margin-bottom: 6px; }
+
+    /* Accordion FAQ */
+    .faq-section { padding: 80px 5%; max-width: 800px; margin: 0 auto; }
+    .faq-item {
+      margin-bottom: 15px;
+      border-radius: 16px;
+      overflow: hidden;
+    }
+
+    .faq-question {
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.03);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 16px;
+    }
+
+    .faq-answer {
+      padding: 0 20px;
+      max-height: 0;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      color: var(--text-dim);
+      font-size: 14px;
+    }
+
+    .faq-item.active .faq-answer {
+      padding: 20px;
+      max-height: 200px;
+      background: rgba(0, 0, 0, 0.3);
+    }
+
+    /* Wallet Modal */
     .modal {
       display: none;
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.8);
-      backdrop-filter: blur(10px);
-      z-index: 1000;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(12px);
+      z-index: 2000;
       justify-content: center;
       align-items: center;
     }
 
     .modal-content {
-      background: #0f172a;
-      border: 1px solid var(--primary);
-      border-radius: 20px;
-      padding: 30px;
-      max-width: 420px;
       width: 90%;
+      max-width: 400px;
+      padding: 30px;
       text-align: center;
       position: relative;
     }
 
-    .modal-close {
-      position: absolute;
-      top: 15px;
-      right: 20px;
-      color: var(--text-dim);
-      font-size: 24px;
-      cursor: pointer;
-    }
-
-    .wallet-option {
+    .wallet-opt {
       display: flex;
       align-items: center;
       justify-content: space-between;
       padding: 14px 20px;
+      border-radius: 14px;
       background: rgba(255, 255, 255, 0.05);
       border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 12px;
       margin-top: 12px;
       cursor: pointer;
       transition: all 0.3s;
     }
 
-    .wallet-option:hover {
+    .wallet-opt:hover {
       border-color: var(--primary);
       background: rgba(0, 240, 255, 0.1);
     }
 
     footer {
+      padding: 40px 5%;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
       text-align: center;
-      padding: 30px;
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
       color: var(--text-dim);
+      font-size: 14px;
     }
 
-    @media (max-width: 768px) {
-      .hero h1 { font-size: 32px; }
-      .dex-grid { grid-template-columns: 1fr; }
+    @media (max-width: 992px) {
+      .hero-section { flex-direction: column; text-align: center; }
+      .hero-visual { margin-top: 50px; }
+      .hero h1 { font-size: 40px; }
+      .nav-links { display: none; }
     }
   </style>
 </head>
 <body>
 
-  <div class="glow-1"></div>
-  <div class="glow-2"></div>
+  <canvas id="bgCanvas"></canvas>
+  <div class="mouse-glow" id="mouseGlow"></div>
 
-  <!-- Navigation -->
+  <!-- Sticky Navbar -->
   <header>
     <a href="#" class="brand">
-      <img src="https://i.imgur.com/U27v8N6.jpeg" alt="Genesis AI Logo" class="logo-img">
-      <span class="brand-text">GENESIS AI</span>
+      <img src="https://i.imgur.com/U27v8N6.jpeg" alt="Genesis AI">
+      <span class="brand-title">GENESIS AI</span>
     </a>
-    <div class="nav-right">
-      <a href="https://x.com/GenesisAIRH" target="_blank" class="btn-action" style="background: rgba(255,255,255,0.08);">X / Twitter</a>
-      <button class="btn-action" id="walletBtn" onclick="openWalletModal()">Connect Wallet</button>
-    </div>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#features">AI Features</a></li>
+      <li><a href="#swap">Swap</a></li>
+      <li><a href="#staking">Staking</a></li>
+      <li><a href="#game">Game</a></li>
+      <li><a href="#tokenomics">Tokenomics</a></li>
+      <li><a href="#roadmap">Roadmap</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ul>
+    <button class="btn-glow" id="walletBtn" onclick="openWalletModal()">
+      <i class="fa-solid fa-wallet"></i> Connect Wallet
+    </button>
   </header>
 
-  <!-- Banner -->
-  <div class="hero-banner">
-    <div class="banner-wrapper">
-      <img src="https://i.imgur.com/nqgj1Wq.jpeg" alt="Genesis AI Banner" class="banner-img">
-      <div class="banner-overlay"></div>
-    </div>
-  </div>
-
   <!-- Hero Section -->
-  <section class="hero">
-    <h1>Genesis AI Exchange & Staking</h1>
-    <p>Trade Robinhood Chain ETH to $GEN instantly or stake your tokens to earn massive compound yield.</p>
-  </section>
-
-  <!-- DEX Swap & Staking Grid -->
-  <div class="dex-grid">
-    
-    <!-- SWAP WIDGET -->
-    <div class="dex-card">
-      <h2>🔄 Instant Swap</h2>
-      
-      <!-- From Token -->
-      <div class="swap-box">
-        <div class="swap-label">
-          <span>YOU PAY</span>
-          <span>Balance: <strong id="ethBal">0.00</strong> ETH</span>
-        </div>
-        <div class="swap-input-row">
-          <input type="number" id="ethInput" class="swap-input" placeholder="0.0" oninput="calculateSwap()">
-          <div class="token-badge">
-            <span style="background:#627eea; width:18px; height:18px; border-radius:50%; display:inline-block; text-align:center; font-size:11px; font-weight:bold; color:#fff;">Ξ</span>
-            RH-ETH
-          </div>
-        </div>
-      </div>
-
-      <div class="swap-arrow">⬇</div>
-
-      <!-- To Token -->
-      <div class="swap-box">
-        <div class="swap-label">
-          <span>YOU RECEIVE</span>
-          <span>Balance: <strong id="genBal">0.00</strong> GEN</span>
-        </div>
-        <div class="swap-input-row">
-          <input type="number" id="genInput" class="swap-input" placeholder="0.0" readonly>
-          <div class="token-badge">
-            <img src="https://i.imgur.com/U27v8N6.jpeg" class="token-icon">
-            $GEN
-          </div>
-        </div>
-      </div>
-
-      <button class="btn-swap" onclick="executeSwap()">Swap Tokens</button>
+  <section class="hero-section" id="about">
+    <div class="hero-bg-cover">
+      <img src="https://i.imgur.com/nqgj1Wq.jpeg" alt="Genesis AI Banner">
     </div>
 
-    <!-- STAKING PORTAL -->
-    <div class="dex-card">
-      <h2>🔥 Staking Vault</h2>
+    <div class="hero-content" data-aos="fade-right">
+      <div class="hero-tag">
+        <i class="fa-solid fa-bolt"></i> ROBINHOOD CHAIN PROTOCOL
+      </div>
+      <h1>Genesis AI</h1>
+      <p id="typingText" style="min-height: 28px; font-weight: 600; color: var(--primary);"></p>
+      <p>Building the next generation of autonomous trading, self-evolving neural security, and decentralized staking intelligence on Robinhood Chain.</p>
       
-      <div class="apy-badge">
-        🚀 EARN 3,000% APY
+      <div class="hero-btns">
+        <a href="#swap" class="btn-glow"><i class="fa-solid fa-cart-shopping"></i> Buy GEN</a>
+        <a href="#staking" class="btn-outline"><i class="fa-solid fa-coins"></i> Stake Now</a>
+        <a href="https://x.com/GenesisAIRH" target="_blank" class="btn-outline"><i class="fa-brands fa-x-twitter"></i> Join X</a>
       </div>
-
-      <div class="swap-box">
-        <div class="swap-label">
-          <span>AMOUNT TO STAKE</span>
-          <span>Staked: <strong id="stakedBal">0.00</strong> GEN</span>
-        </div>
-        <div class="swap-input-row">
-          <input type="number" id="stakeInput" class="swap-input" placeholder="0.0" oninput="calculateYield()">
-          <div class="token-badge">
-            <img src="https://i.imgur.com/U27v8N6.jpeg" class="token-icon">
-            $GEN
-          </div>
-        </div>
-      </div>
-
-      <div style="background: rgba(255,255,255,0.03); padding: 12px; border-radius: 12px; font-size: 13px; color: var(--text-dim); margin-bottom: 15px;">
-        <div style="display:flex; justify-shadow:space-between; justify-content:space-between; margin-bottom: 4px;">
-          <span>Estimated Yearly Returns:</span>
-          <strong id="estReward" style="color:var(--gold);">0 $GEN</strong>
-        </div>
-        <div style="display:flex; justify-content:space-between;">
-          <span>Lock Duration:</span>
-          <strong style="color:var(--primary);">Flexible / No Lock</strong>
-        </div>
-      </div>
-
-      <button class="btn-swap" style="background: linear-gradient(135deg, var(--gold), var(--accent));" onclick="executeStake()">Stake $GEN Tokens</button>
     </div>
 
-  </div>
-
-  <!-- Mini Game -->
-  <section class="game-section">
-    <div class="game-card">
-      <h2>🎮 Genesis Coin Defender (Play & Earn)</h2>
-      <p style="color: var(--text-dim); margin-bottom: 15px;">Connect address & collect falling $GEN tokens. Watch out for red spikes!</p>
-
-      <div class="canvas-wrapper">
-        <canvas id="gameCanvas" width="750" height="380"></canvas>
+    <!-- Hologram Core Visual -->
+    <div class="hero-visual" data-aos="zoom-in">
+      <div class="holo-ring"></div>
+      <div class="holo-ring"></div>
+      <div class="holo-core">
+        <img src="https://i.imgur.com/U27v8N6.jpeg" alt="Genesis AI Core">
       </div>
     </div>
   </section>
 
-  <!-- Modal Wallet Connect -->
-  <div class="modal" id="walletModal">
-    <div class="modal-content">
-      <span class="modal-close" onclick="closeWalletModal()">&times;</span>
-      <h3 style="font-family:'Orbitron'; margin-bottom:15px; color:var(--primary);">Select Wallet</h3>
-      <p style="font-size:13px; color:var(--text-dim); margin-bottom:20px;">Connect your Web3 EVM wallet on Robinhood Chain</p>
-
-      <div class="wallet-option" onclick="connectWallet('MetaMask')">
-        <span>MetaMask / Rabby</span>
-        <span>🦊</span>
+  <!-- Live Dashboard -->
+  <section class="stats-section">
+    <div class="glass-panel stats-grid" data-aos="fade-up">
+      <div class="stat-card">
+        <div class="stat-number">1,000,000,000</div>
+        <div class="stat-label">Total Supply</div>
       </div>
-      <div class="wallet-option" onclick="connectWallet('Robinhood Wallet')">
-        <span>Robinhood Web3 App</span>
-        <span>🏹</span>
+      <div class="stat-card">
+        <div class="stat-number">12,450+</div>
+        <div class="stat-label">Holders</div>
       </div>
-      <div class="wallet-option" onclick="connectWallet('Manual Address')">
-        <span>Paste EVM Address</span>
-        <span>🔑</span>
+      <div class="stat-card">
+        <div class="stat-number">$4.2M</div>
+        <div class="stat-label">Liquidity</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">$18.5M</div>
+        <div class="stat-label">Market Cap</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" style="color:var(--accent);">150M $GEN</div>
+        <div class="stat-label">Burned Tokens</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" style="color:#10b981;">ACTIVE</div>
+        <div class="stat-label">AI Status</div>
       </div>
     </div>
-  </div>
+  </section>
 
+  <!-- AI Features Section -->
+  <section class="features-section" id="features">
+    <div class="section-title" data-aos="fade-up">
+      <h2>Autonomous AI Ecosystem</h2>
+      <p>Cutting-edge artificial intelligence infrastructure driving the Robinhood Chain</p>
+    </div>
+
+    <div class="features-grid">
+      <div class="glass-panel feature-card" data-aos="fade-up" data-aos-delay="100">
+        <i class="fa-solid fa-brain feature-icon"></i>
+        <h3>AI Intelligence</h3>
+        <p>Self-learning neural algorithms analyzing real-time blockchain telemetry and token velocity.</p>
+      </div>
+
+      <div class="glass-panel feature-card" data-aos="fade-up" data-aos-delay="200">
+        <i class="fa-solid fa-shield-halved feature-icon"></i>
+        <h3>AI Security</h3>
+        <p>Automated contract defense shield detecting flash loan attacks and malicious bot actions.</p>
+      </div>
+
+      <div class="glass-panel feature-card" data-aos="fade-up" data-aos-delay="300">
+        <i class="fa-solid fa-chart-line feature-icon"></i>
+        <h3>AI Trading Signals</h3>
+        <p>High-frequency Predictive algorithmic signals generated directly for $GEN stakers.</p>
+      </div>
+
+      <div class="glass-panel feature-card" data-aos="fade-up" data-aos-delay="400">
+        <i class="fa-solid fa-robot feature-icon"></i>
+        <h3>AI Automation</h3>
+        <p>Seamless automated portfolio rebalancing and compound yield optimization.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Swap & Staking Grid -->
+  <section class="defi-section">
+    <div class="defi-grid">
+      
+      <!-- SWAP WIDGET -->
+      <div class="glass-panel" style="padding: 30px;" id="swap" data-aos="fade-right">
+        <h3 style="font-family:'Orbitron'; margin-bottom: 20px;"><i class="fa-solid fa-rotate"></i> Instant Swap</h3>
+        
+        <div class="swap-box">
+          <div style="display:flex; justify-content:space-between; font-size:12px; color:var(--text-dim);">
+            <span>YOU PAY</span>
+            <span>Bal: <strong id="ethBal">1.50</strong> ETH</span>
+          </div>
+          <div class="swap-input-row">
+            <input type="number" id="ethPay" class="swap-input" placeholder="0.0" oninput="calcSwap()">
+            <div class="token-badge">
+              <span style="background:#627eea; width:18px; height:18px; border-radius:50%; display:inline-block; text-align:center; font-size:11px; font-weight:bold;">Ξ</span>
+              RH-ETH
+            </div>
+          </div>
+        </div>
+
+        <div style="text-align:center; margin:-6px 0; color:var(--primary);"><i class="fa-solid fa-arrow-down-long"></i></div>
+
+        <div class="swap-box">
+          <div style="display:flex; justify-content:space-between; font-size:12px; color:var(--text-dim);">
+            <span>YOU RECEIVE</span>
+            <span>Bal: <strong id="genBal">0.00</strong> GEN</span>
+          </div>
+          <div class="swap-input-row">
+            <input type="number" id="genRec" class="swap-input" placeholder="0.0" readonly>
+            <div class="token-badge">
+              <img src="https://i.imgur.com/U27v8N6.jpeg" class="token-icon">
+              $GEN
+            </div>
+          </div>
+        </div>
+
+        <div style="font-size:12px; color:var(--text-dim); margin: 15px 0;">
+          <div style="display:flex; justify-content:space-between; margin-bottom:4px;">
+            <span>Price Impact:</span> <span style="color:#10b981;"><0.01%</span>
+          </div>
+          <div style="display:flex; justify-content:space-between;">
+            <span>Network Fee:</span> <span>~0.0004 ETH</span>
+          </div>
+        </div>
+
+        <button class="btn-glow" style="width:100%; justify-content:center;" onclick="executeSwap()">Execute Swap</button>
+      </div>
+
+      <!-- STAKING VAULT -->
+      <div class="glass-panel" style="padding: 30px;" id="staking" data-aos="fade-left">
+        <h3 style="font-family:'Orbitron'; margin-bottom: 20px;"><i class="fa-solid fa-vault"></i> Staking Vault</h3>
+        
+        <div style="background: linear-gradient(90deg, rgba(251, 191, 36, 0.15), rgba(244, 63, 94, 0.15)); border:1px solid var(--gold); border-radius:12px; padding:12px; text-align:center; margin-bottom:20px;">
+          <span style="font-family:'Orbitron'; color:var(--gold); font-weight:bold; font-size:18px;">3,000% APY YIELD</span>
+        </div>
+
+        <div class="swap-box">
+          <div style="display:flex; justify-content:space-between; font-size:12px; color:var(--text-dim);">
+            <span>AMOUNT TO STAKE</span>
+            <span>Staked: <strong id="stakedAmount">0.00</strong> GEN</span>
+          </div>
+          <div class="swap-input-row">
+            <input type="number" id="stakeInput" class="swap-input" placeholder="0.0" oninput="calcStake()">
+            <div class="token-badge">
+              <img src="https://i.imgur.com/U27v8N6.jpeg" class="token-icon">
+              $GEN
+            </div>
+          </div>
+        </div>
+
+        <div style="background: rgba(255,255,255,0.03); padding: 12px; border-radius: 12px; font-size: 13px; color: var(--text-dim); margin-bottom: 15px;">
+          <div style="display:flex; justify-content:space-between; margin-bottom: 4px;">
+            <span>Live Earned Rewards:</span>
+            <strong id="liveRewards" style="color:var(--gold);">0.000 $GEN</strong>
+          </div>
+          <div style="display:flex; justify-content:space-between;">
+            <span>Est. Yearly Return:</span>
+            <strong id="yearlyReturn" style="color:var(--primary);">0 $GEN</strong>
+          </div>
+        </div>
+
+        <div style="display:flex; gap:10px;">
+          <button class="btn-glow" style="flex:1; justify-content:center; background: linear-gradient(135deg, var(--gold), var(--accent));" onclick="executeStake()">Stake</button>
+          <button class="btn-outline" style="flex:1; text-align:center;" onclick="claimRewards()">Claim</button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Genesis AI Defender Game -->
+  <section class="game-section" id="game">
+    <div class="section-title" data-aos="fade-up">
+      <h2>Genesis AI Defender</h2>
+      <p>Protect the Core from Malware Attacks & Earn Neural Points</p>
+    </div>
+
+    <div class="glass-panel game-container" data-aos="zoom-in">
+      
+      <div class="game-canvas-wrapper">
+        <!-- Lock Overlay -->
+        <div class="game-overlay" id="gameOverlay">
+          <i class="fa-solid fa-lock" style="font-size: 40px; color: var(--primary); margin-bottom: 15px;"></i>
+          <h3 style="font-family:'Orbitron'; margin-bottom: 10px;">Connect Wallet To Play</h3>
+          <p style="font-size: 13px; color: var(--text-dim); margin-bottom: 15px;">Enter your Robinhood EVM address to unlock defender access.</p>
+          <input type="text" id="gameWalletInput" placeholder="0x... Robinhood Address">
+          <button class="btn-glow" onclick="unlockGame()">Start Protocol</button>
+        </div>
+
+        <canvas id="gameCanvas" width="750" height="400"></canvas>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Tokenomics Section -->
+  <section class="features-section" id="tokenomics">
+    <div class="section-title" data-aos="fade-up">
+      <h2>Tokenomics Architecture</h2>
+      <p>Balanced supply distribution engineered for long-term scarcity and growth</p>
+    </div>
+
+    <div style="max-width: 600px; margin: 0 auto;" class="glass-panel" data-aos="fade-up">
+      <canvas id="tokenomicsChart" style="padding:20px;"></canvas>
+    </div>
+  </section>
+
+  <!-- Roadmap Section -->
+  <section class="roadmap-section" id="roadmap">
+    <div class="section-title" data-aos="fade-up">
+      <h2>System Roadmap</h2>
+      <p>Phase-by-phase evolution of the Genesis AI Engine</p>
+    </div>
+
+    <div class="roadmap-grid">
+      <div class="glass-panel roadmap-card" style="padding:25px;" data-aos="fade-up" data-aos-delay="100">
+        <h4>PHASE 01: INITIALIZATION</h4>
+        <ul>
+          <li><i class="fa-solid fa-check" style="color:var(--primary);"></i> Smart Contract Deploy</li>
+          <li><i class="fa-solid fa-check" style="color:var(--primary);"></i> Robinhood Chain Launch</li>
+          <li><i class="fa-solid fa-check" style="color:var(--primary);"></i> Community Building</li>
+        </ul>
+      </div>
+
+      <div class="glass-panel roadmap-card" style="padding:25px;" data-aos="fade-up" data-aos-delay="200">
+        <h4>PHASE 02: ECOSYSTEM</h4>
+        <ul>
+          <li><i class="fa-solid fa-spinner" style="color:var(--gold);"></i> AI Defender Game</li>
+          <li><i class="fa-solid fa-spinner" style="color:var(--gold);"></i> Staking Protocol</li>
+          <li><i class="fa-solid fa-spinner" style="color:var(--gold);"></i> DEX Aggregator</li>
+        </ul>
+      </div>
+
+      <div class="glass-panel roadmap-card" style="padding:25px;" data-aos="fade-up" data-aos-delay="300">
+        <h4>PHASE 03: INTELLIGENCE</h4>
+        <ul>
+          <li><i class="fa-regular fa-circle"></i> AI Marketplace</li>
+          <li><i class="fa-regular fa-circle"></i> Autonomous Agents</li>
+          <li><i class="fa-regular fa-circle"></i> DAO Governance</li>
+        </ul>
+      </div>
+
+      <div class="glass-panel roadmap-card" style="padding:25px;" data-aos="fade-up" data-aos-delay="400">
+        <h4>PHASE 04: EXPANSION</h4>
+        <ul>
+          <li><i class="fa-regular fa-circle"></i> Tier-1 CEX Listings</li>
+          <li><i class="fa-regular fa-circle"></i> Global AI Summit</li>
+          <li><i class="fa-regular fa-circle"></i> Institutional Bridge</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="faq-section" id="faq">
+    <div class="section-title" data-aos="fade-up">
+      <h2>Frequently Asked Questions</h2>
+    </div>
+
+    <div class="faq-item glass-panel" onclick="toggleFaq(this)" data-aos="fade-up">
+      <div class="faq-question">
+        <span>What is Genesis AI ($GEN)?</span>
+        <i class="fa-solid fa-chevron-down"></i>
+      </div>
+      <div class="faq-answer">
+        Genesis AI is an autonomous, self-evolving AI protocol built specifically for the Robinhood Chain ecosystem, providing smart trading signals, staking yield, and automated defense.
+      </div>
+    </div>
+
+    <div class="faq-item glass-panel" onclick="toggleFaq(this)" data-aos="fade-up">
+      <div class="faq-question">
+        <span>How does the 3,000% Staking APY work?</span>
+        <i class="fa-solid fa-chevron-down"></i>
+      </div>
+      <div class="faq-answer">
+        Rewards are generated dynamically from protocol transaction fees and ecosystem treasury distribution, allowing early stakers to compound high APY yields directly to their wallets.
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
   <footer>
-    <p>© 2026 Genesis AI ($GEN). Built for <a href="https://x.com/GenesisAIRH" target="_blank" style="color:var(--primary);">Robinhood Chain Community</a>.</p>
+    <div style="margin-bottom: 15px;">
+      <a href="https://x.com/GenesisAIRH" target="_blank" style="color:var(--primary); font-size: 20px; margin: 0 10px;"><i class="fa-brands fa-x-twitter"></i></a>
+      <a href="#" style="color:var(--primary); font-size: 20px; margin: 0 10px;"><i class="fa-brands fa-telegram"></i></a>
+    </div>
+    <p>© 2026 Genesis AI ($GEN). Deployed on Robinhood Chain.</p>
   </footer>
 
-  <!-- Scripts -->
+  <!-- Connect Wallet Modal -->
+  <div class="modal" id="walletModal">
+    <div class="glass-panel modal-content">
+      <h3 style="font-family:'Orbitron'; margin-bottom:15px; color:var(--primary);">Connect Wallet</h3>
+      <p style="font-size:13px; color:var(--text-dim); margin-bottom:15px;">Select your EVM Web3 Provider</p>
+
+      <div class="wallet-opt" onclick="connectWallet('Robinhood Wallet')">
+        <span>Robinhood Web3 App</span>
+        <i class="fa-solid fa-shield-cat"></i>
+      </div>
+      <div class="wallet-opt" onclick="connectWallet('MetaMask')">
+        <span>MetaMask / Rabby</span>
+        <i class="fa-solid fa-fox"></i>
+      </div>
+      <div class="wallet-opt" onclick="connectWallet('WalletConnect')">
+        <span>WalletConnect</span>
+        <i class="fa-solid fa-qrcode"></i>
+      </div>
+    </div>
+  </div>
+
+  <!-- JS Dependencies -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
   <script>
-    let userWallet = "";
-    let ethBalance = 2.5;
-    let genBalance = 50000;
-    let stakedBalance = 0;
-    const ETH_TO_GEN_RATE = 1000000; // 1 ETH = 1,000,000 $GEN
+    AOS.init({ duration: 1000, once: true });
 
-    // Wallet Modal
-    function openWalletModal() {
-      document.getElementById("walletModal").style.display = "flex";
-    }
+    // Typing Effect
+    const words = ["The First Self-Evolving AI on Robinhood Chain.", "Autonomous Trading Intelligence.", "3,000% APY Staking Engine."];
+    let wordIdx = 0, charIdx = 0, isDeleting = false;
+    
+    function typeEffect() {
+      const currentWord = words[wordIdx];
+      const targetEl = document.getElementById("typingText");
 
-    function closeWalletModal() {
-      document.getElementById("walletModal").style.display = "none";
-    }
-
-    function connectWallet(type) {
-      let addr = "";
-      if (type === 'Manual Address') {
-        addr = prompt("Enter Robinhood Chain EVM Address (0x...):");
+      if (isDeleting) {
+        targetEl.innerText = currentWord.substring(0, charIdx--);
       } else {
-        addr = "0x71C" + Math.floor(Math.random()*899999 + 100000) + "3b8";
+        targetEl.innerText = currentWord.substring(0, charIdx++);
       }
 
-      if (addr && addr.length > 8) {
-        userWallet = addr;
-        document.getElementById("walletBtn").innerText = userWallet.substring(0, 6) + "..." + userWallet.substring(userWallet.length - 4);
-        document.getElementById("walletBtn").style.background = "#10b981";
-        document.getElementById("ethBal").innerText = ethBalance.toFixed(2);
-        document.getElementById("genBal").innerText = genBalance.toLocaleString();
-        closeWalletModal();
-        initGame();
+      if (!isDeleting && charIdx === currentWord.length + 1) {
+        isDeleting = true;
+        setTimeout(typeEffect, 1500);
+      } else if (isDeleting && charIdx === 0) {
+        isDeleting = false;
+        wordIdx = (wordIdx + 1) % words.length;
+        setTimeout(typeEffect, 500);
+      } else {
+        setTimeout(typeEffect, isDeleting ? 40 : 80);
       }
     }
+    typeEffect();
 
-    // Swap Math
-    function calculateSwap() {
-      const val = parseFloat(document.getElementById("ethInput").value) || 0;
-      document.getElementById("genInput").value = (val * ETH_TO_GEN_RATE).toLocaleString();
+    // Mouse Glow Track
+    window.addEventListener('mousemove', (e) => {
+      const glow = document.getElementById('mouseGlow');
+      glow.style.left = e.clientX + 'px';
+      glow.style.top = e.clientY + 'px';
+    });
+
+    // Background Particle Grid Canvas
+    const bgCanvas = document.getElementById('bgCanvas');
+    const bgCtx = bgCanvas.getContext('2d');
+    let particles = [];
+
+    function resizeBg() {
+      bgCanvas.width = window.innerWidth;
+      bgCanvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeBg);
+    resizeBg();
+
+    for (let i = 0; i < 60; i++) {
+      particles.push({
+        x: Math.random() * bgCanvas.width,
+        y: Math.random() * bgCanvas.height,
+        vx: (Math.random() - 0.5) * 0.8,
+        vy: (Math.random() - 0.5) * 0.8,
+        radius: Math.random() * 2
+      });
+    }
+
+    function animateBg() {
+      bgCtx.clearRect(0, 0, bgCanvas.width, bgCanvas.height);
+      bgCtx.fillStyle = '#00f0ff';
+
+      for (let i = 0; i < particles.length; i++) {
+        let p = particles[i];
+        p.x += p.vx;
+        p.y += p.vy;
+
+        if (p.x < 0 || p.x > bgCanvas.width) p.vx *= -1;
+        if (p.y < 0 || p.y > bgCanvas.height) p.vy *= -1;
+
+        bgCtx.beginPath();
+        bgCtx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+        bgCtx.fill();
+      }
+      requestAnimationFrame(animateBg);
+    }
+    animateBg();
+
+    // Wallet Logic
+    let activeWallet = "";
+    function openWalletModal() { document.getElementById("walletModal").style.display = "flex"; }
+    
+    function connectWallet(name) {
+      activeWallet = "0x71C" + Math.floor(Math.random()*899999 + 100000) + "3b8";
+      document.getElementById("walletBtn").innerText = activeWallet.substring(0, 6) + "..." + activeWallet.substring(38);
+      document.getElementById("walletModal").style.display = "none";
+      document.getElementById("gameWalletInput").value = activeWallet;
+    }
+
+    // Swap System
+    const ETH_RATE = 1000000; // 1 ETH = 1,000,000 GEN
+    let userEth = 1.5, userGen = 0, userStaked = 0;
+
+    function calcSwap() {
+      const input = parseFloat(document.getElementById("ethPay").value) || 0;
+      document.getElementById("genRec").value = (input * ETH_RATE).toLocaleString();
     }
 
     function executeSwap() {
-      if (!userWallet) { openWalletModal(); return; }
-      const input = parseFloat(document.getElementById("ethInput").value);
-      if (!input || input > ethBalance) {
-        alert("Insufficient Robinhood ETH balance!");
-        return;
-      }
-
-      ethBalance -= input;
-      const acquiredGen = input * ETH_TO_GEN_RATE;
-      genBalance += acquiredGen;
-
-      document.getElementById("ethBal").innerText = ethBalance.toFixed(2);
-      document.getElementById("genBal").innerText = genBalance.toLocaleString();
-      document.getElementById("ethInput").value = "";
-      document.getElementById("genInput").value = "";
-      alert(`Success! Swapped ${input} ETH for ${acquiredGen.toLocaleString()} $GEN on Robinhood Chain!`);
+      const input = parseFloat(document.getElementById("ethPay").value);
+      if (!input || input > userEth) { alert("Insufficient ETH!"); return; }
+      userEth -= input;
+      userGen += input * ETH_RATE;
+      document.getElementById("ethBal").innerText = userEth.toFixed(2);
+      document.getElementById("genBal").innerText = userGen.toLocaleString();
+      document.getElementById("ethPay").value = "";
+      document.getElementById("genRec").value = "";
+      alert("Swap Executed Successfully!");
     }
 
-    // Staking Math
-    function calculateYield() {
-      const val = parseFloat(document.getElementById("stakeInput").value) || 0;
-      const yearly = val * 30; // 3000% APY
-      document.getElementById("estReward").innerText = yearly.toLocaleString() + " $GEN";
+    // Staking System
+    function calcStake() {
+      const input = parseFloat(document.getElementById("stakeInput").value) || 0;
+      document.getElementById("yearlyReturn").innerText = (input * 30).toLocaleString() + " $GEN";
     }
 
     function executeStake() {
-      if (!userWallet) { openWalletModal(); return; }
       const input = parseFloat(document.getElementById("stakeInput").value);
-      if (!input || input > genBalance) {
-        alert("Insufficient $GEN balance to stake!");
-        return;
-      }
-
-      genBalance -= input;
-      stakedBalance += input;
-
-      document.getElementById("genBal").innerText = genBalance.toLocaleString();
-      document.getElementById("stakedBal").innerText = stakedBalance.toLocaleString();
+      if (!input || input > userGen) { alert("Insufficient $GEN balance!"); return; }
+      userGen -= input;
+      userStaked += input;
+      document.getElementById("genBal").innerText = userGen.toLocaleString();
+      document.getElementById("stakedAmount").innerText = userStaked.toLocaleString();
       document.getElementById("stakeInput").value = "";
-      alert(`Successfully staked ${input.toLocaleString()} $GEN at 3,000% APY!`);
     }
 
-    // Mini Game System
-    const canvas = document.getElementById("gameCanvas");
-    const ctx = canvas.getContext("2d");
-    let basket = { x: 335, y: 330, width: 90, height: 16 };
-    let coins = [], hazards = [], score = 0, gameActive = false;
+    setInterval(() => {
+      if (userStaked > 0) {
+        let currentRewards = parseFloat(document.getElementById("liveRewards").innerText) || 0;
+        currentRewards += userStaked * 0.0001;
+        document.getElementById("liveRewards").innerText = currentRewards.toFixed(4) + " $GEN";
+      }
+    }, 1000);
 
-    canvas.addEventListener("mousemove", (e) => {
-      const rect = canvas.getBoundingClientRect();
-      basket.x = e.clientX - rect.left - basket.width / 2;
+    function claimRewards() {
+      alert("Rewards Claimed To Your Wallet!");
+      document.getElementById("liveRewards").innerText = "0.000 $GEN";
+    }
+
+    // FAQ Accordion
+    function toggleFaq(el) {
+      el.classList.toggle("active");
+    }
+
+    // Tokenomics Chart
+    const ctx = document.getElementById('tokenomicsChart').getContext('2d');
+    new Chart(ctx, {
+      type: 'doughnut',
+      data: {
+        labels: ['Liquidity (40%)', 'Staking Rewards (25%)', 'Marketing (15%)', 'Treasury (10%)', 'Ecosystem (10%)'],
+        datasets: [{
+          data: [40, 25, 15, 10, 10],
+          backgroundColor: ['#00f0ff', '#fbbf24', '#f43f5e', '#7c3aed', '#10b981'],
+          borderWidth: 0
+        }]
+      },
+      options: {
+        plugins: { legend: { labels: { color: '#f8fafc', font: { family: 'Orbitron' } } } }
+      }
     });
 
-    function initGame() {
-      gameActive = true;
-      score = 0;
-      coins = [];
-      hazards = [];
+    // Game Unlock System
+    function unlockGame() {
+      const val = document.getElementById("gameWalletInput").value;
+      if (val.length > 5) {
+        document.getElementById("gameOverlay").style.display = "none";
+        startGame();
+      } else {
+        alert("Enter a valid EVM Address!");
+      }
+    }
+
+    // Game Core
+    const gCanvas = document.getElementById("gameCanvas");
+    const gCtx = gCanvas.getContext("2d");
+    let core = { x: 375, y: 200, hp: 100 }, enemies = [], gameScore = 0;
+
+    gCanvas.addEventListener("mousemove", (e) => {
+      const rect = gCanvas.getBoundingClientRect();
+      const mx = e.clientX - rect.left;
+      const my = e.clientY - rect.top;
+
+      // Laser destruction
+      for (let i = 0; i < enemies.length; i++) {
+        let en = enemies[i];
+        let dist = Math.hypot(en.x - mx, en.y - my);
+        if (dist < 20) {
+          enemies.splice(i, 1);
+          gameScore += 50;
+          break;
+        }
+      }
+    });
+
+    function startGame() {
+      setInterval(() => {
+        let angle = Math.random() * Math.PI * 2;
+        enemies.push({
+          x: core.x + Math.cos(angle) * 300,
+          y: core.y + Math.sin(angle) * 300,
+          speed: 1.5
+        });
+      }, 800);
       gameLoop();
     }
 
     function gameLoop() {
-      if (!gameActive) return;
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      gCtx.clearRect(0, 0, gCanvas.width, gCanvas.height);
 
-      // Basket
-      ctx.fillStyle = "#00f0ff";
-      ctx.shadowBlur = 10;
-      ctx.shadowColor = "#00f0ff";
-      ctx.fillRect(basket.x, basket.y, basket.width, basket.height);
+      // Draw Core
+      gCtx.beginPath();
+      gCtx.arc(core.x, core.y, 25, 0, Math.PI * 2);
+      gCtx.fillStyle = "#00f0ff";
+      gCtx.shadowBlur = 20;
+      gCtx.shadowColor = "#00f0ff";
+      gCtx.fill();
 
-      // Coins
-      if (Math.random() < 0.04) coins.push({ x: Math.random() * (canvas.width - 20) + 10, y: 0, speed: 3 });
-      if (Math.random() < 0.015) hazards.push({ x: Math.random() * (canvas.width - 20) + 10, y: 0, speed: 3.5 });
+      // Enemies
+      for (let i = 0; i < enemies.length; i++) {
+        let en = enemies[i];
+        let dx = core.x - en.x;
+        let dy = core.y - en.y;
+        let angle = Math.atan2(dy, dx);
 
-      for (let i = 0; i < coins.length; i++) {
-        let c = coins[i];
-        c.y += c.speed;
-        ctx.beginPath();
-        ctx.arc(c.x, c.y, 12, 0, Math.PI * 2);
-        ctx.fillStyle = "#fbbf24";
-        ctx.fill();
+        en.x += Math.cos(angle) * en.speed;
+        en.y += Math.sin(angle) * en.speed;
 
-        if (c.y >= basket.y && c.x >= basket.x && c.x <= basket.x + basket.width) {
-          score += 10;
-          coins.splice(i, 1);
-          i--;
+        gCtx.beginPath();
+        gCtx.arc(en.x, en.y, 8, 0, Math.PI * 2);
+        gCtx.fillStyle = "#f43f5e";
+        gCtx.fill();
+
+        if (Math.hypot(core.x - en.x, core.y - en.y) < 30) {
+          core.hp -= 5;
+          enemies.splice(i, 1);
+          if (core.hp <= 0) {
+            alert("Core Compromised! Score: " + gameScore);
+            location.reload();
+            return;
+          }
         }
       }
 
-      for (let j = 0; j < hazards.length; j++) {
-        let h = hazards[j];
-        h.y += h.speed;
-        ctx.beginPath();
-        ctx.arc(h.x, h.y, 14, 0, Math.PI * 2);
-        ctx.fillStyle = "#ef4444";
-        ctx.fill();
-
-        if (h.y >= basket.y && h.x >= basket.x && h.x <= basket.x + basket.width) {
-          alert("Game Over! Final Score: " + score);
-          gameActive = false;
-          return;
-        }
-      }
-
-      ctx.fillStyle = "#fff";
-      ctx.font = "16px Orbitron";
-      ctx.fillText("Score: " + score, 20, 30);
+      // HUD
+      gCtx.fillStyle = "#fff";
+      gCtx.font = "14px Orbitron";
+      gCtx.fillText("CORE HP: " + core.hp + "%", 20, 30);
+      gCtx.fillText("SCORE: " + gameScore, 20, 50);
 
       requestAnimationFrame(gameLoop);
     }

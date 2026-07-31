@@ -45,7 +45,7 @@
       line-height: 1.5;
     }
 
-    /* Particle Background Canvas */
+    /* Particle Canvas Background */
     #bgCanvas {
       position: fixed;
       top: 0;
@@ -83,7 +83,7 @@
       border-color: rgba(0, 240, 255, 0.4);
     }
 
-    /* Navigation Header */
+    /* Header & Navigation */
     header {
       position: fixed;
       top: 0;
@@ -221,7 +221,47 @@
     .hero p {
       font-size: clamp(14px, 2vw, 16px);
       color: var(--text-dim);
+      margin-bottom: 20px;
+    }
+
+    /* Contract Address Box */
+    .ca-box {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 8px 14px;
       margin-bottom: 25px;
+      max-width: 480px;
+    }
+
+    .ca-text {
+      font-family: monospace;
+      font-size: 12px;
+      color: var(--primary);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-right: 10px;
+    }
+
+    .ca-copy-btn {
+      background: rgba(0, 240, 255, 0.2);
+      border: 1px solid var(--primary);
+      color: #fff;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 11px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.2s;
+    }
+
+    .ca-copy-btn:hover {
+      background: var(--primary);
+      color: #000;
     }
 
     .hero-btns {
@@ -252,7 +292,7 @@
       border-color: var(--primary);
     }
 
-    /* Hero Hologram Core */
+    /* Hero Visual Ring */
     .hero-visual {
       position: relative;
       width: clamp(250px, 30vw, 360px);
@@ -298,7 +338,7 @@
       50% { transform: translateY(-10px); }
     }
 
-    /* Live Dashboard Stats */
+    /* Live Dashboard */
     .stats-section {
       padding: 20px 5%;
       margin-top: -20px;
@@ -311,9 +351,7 @@
       padding: 20px;
     }
 
-    .stat-card {
-      text-align: center;
-    }
+    .stat-card { text-align: center; }
 
     .stat-number {
       font-family: 'Orbitron', sans-serif;
@@ -329,7 +367,7 @@
       letter-spacing: 1px;
     }
 
-    /* Section Titles */
+    /* Section Header */
     .section-title {
       text-align: center;
       margin-bottom: 35px;
@@ -347,7 +385,7 @@
       font-size: 14px;
     }
 
-    /* Features Grid */
+    /* Features */
     .features-section { padding: 50px 5%; }
     .features-grid {
       display: grid;
@@ -355,9 +393,7 @@
       gap: 20px;
     }
 
-    .feature-card {
-      padding: 24px;
-    }
+    .feature-card { padding: 24px; }
 
     .feature-icon {
       font-size: 30px;
@@ -376,7 +412,7 @@
       font-size: 13px;
     }
 
-    /* DeFi Grid (Swap & Staking) */
+    /* DeFi Section */
     .defi-section { padding: 50px 5%; }
     .defi-grid {
       display: grid;
@@ -575,21 +611,15 @@
       font-size: 13px;
     }
 
-    /* Mobile Adaptations */
     @media (max-width: 992px) {
       .hero-section {
         flex-direction: column;
         text-align: center;
         padding-top: 90px;
       }
-
-      .hero-visual {
-        margin-top: 35px;
-      }
-
-      .nav-links {
-        display: none;
-      }
+      .ca-box { margin: 0 auto 20px; }
+      .hero-visual { margin-top: 35px; }
+      .nav-links { display: none; }
     }
   </style>
 </head>
@@ -598,7 +628,7 @@
   <canvas id="bgCanvas"></canvas>
   <div class="mouse-glow" id="mouseGlow"></div>
 
-  <!-- Header / Navigation -->
+  <!-- Header -->
   <header>
     <a href="#" class="brand">
       <img src="https://i.imgur.com/U27v8N6.jpeg" alt="Genesis AI">
@@ -607,7 +637,7 @@
     <ul class="nav-links">
       <li><a href="#about">About</a></li>
       <li><a href="#features">AI Features</a></li>
-      <li><a href="#swap">Swap</a></li>
+      <li><a href="#swap">Buy / Swap</a></li>
       <li><a href="#staking">Staking</a></li>
       <li><a href="#game">Game</a></li>
       <li><a href="#tokenomics">Tokenomics</a></li>
@@ -633,11 +663,18 @@
       <p id="typingText" style="min-height: 24px; font-weight: 600; color: var(--primary);"></p>
       <p>Building the next generation of autonomous trading, self-evolving neural security, and decentralized staking intelligence on Robinhood Chain.</p>
       
+      <!-- Contract Address Display -->
+      <div class="ca-box">
+        <span class="ca-text" id="caText">0x963d4178184b2b1a95d532f846060a1bfa3596fd</span>
+        <button class="ca-copy-btn" onclick="copyCA()"><i class="fa-regular fa-copy"></i> Copy CA</button>
+      </div>
+
       <div class="hero-btns" style="justify-content: center;">
-        <a href="#swap" class="btn-glow"><i class="fa-solid fa-cart-shopping"></i> Buy GEN</a>
+        <a href="https://ponsfamily.com/launchpad/0x963d4178184b2b1a95d532f846060a1bfa3596fd" target="_blank" class="btn-glow"><i class="fa-solid fa-cart-shopping"></i> Buy GEN</a>
+        <a href="https://dexscreener.com/robinhood/0x72771896312eafed84b90ea992289bd454067f36" target="_blank" class="btn-outline" style="border-color:#10b981; color:#10b981;"><i class="fa-solid fa-chart-line"></i> Live Chart</a>
         <a href="#staking" class="btn-outline"><i class="fa-solid fa-coins"></i> Stake Now</a>
         <a href="https://x.com/GenesisAIRH" target="_blank" class="btn-outline"><i class="fa-brands fa-x-twitter"></i> X</a>
-        <a href="https://t.me/+SHZ4YANpFo4wNmU1" target="_blank" class="btn-outline" style="border-color: var(--primary);"><i class="fa-brands fa-telegram"></i> Telegram</a>
+        <a href="https://t.me/GenesisAIRH" target="_blank" class="btn-outline" style="border-color: var(--primary);"><i class="fa-brands fa-telegram"></i> Telegram</a>
       </div>
     </div>
 
@@ -650,7 +687,7 @@
     </div>
   </section>
 
-  <!-- Updated Dashboard Stats (Only Total Supply, Burned, Status) -->
+  <!-- Live Stats Section -->
   <section class="stats-section">
     <div class="glass-panel stats-grid" data-aos="fade-up">
       <div class="stat-card">
@@ -668,7 +705,7 @@
     </div>
   </section>
 
-  <!-- Features -->
+  <!-- Features Section -->
   <section class="features-section" id="features">
     <div class="section-title" data-aos="fade-up">
       <h2>Autonomous AI Engine</h2>
@@ -702,13 +739,16 @@
     </div>
   </section>
 
-  <!-- DeFi Grid (Updated Swap with ETH) -->
+  <!-- Swap & Staking Grid -->
   <section class="defi-section">
     <div class="defi-grid">
       
       <!-- SWAP WIDGET -->
       <div class="glass-panel" style="padding: 24px;" id="swap" data-aos="fade-right">
-        <h3 style="font-family:'Orbitron'; margin-bottom: 15px; font-size: 18px;"><i class="fa-solid fa-rotate"></i> Instant Swap</h3>
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 15px;">
+          <h3 style="font-family:'Orbitron'; font-size: 18px;"><i class="fa-solid fa-rotate"></i> Instant Swap</h3>
+          <a href="https://dexscreener.com/robinhood/0x72771896312eafed84b90ea992289bd454067f36" target="_blank" style="font-size: 11px; color: #10b981; text-decoration: none; font-weight: bold;"><i class="fa-solid fa-arrow-up-right-from-square"></i> DexScreener</a>
+        </div>
         
         <div class="swap-box">
           <div style="display:flex; justify-content:space-between; font-size:11px; color:var(--text-dim);">
@@ -740,7 +780,10 @@
           </div>
         </div>
 
-        <button class="btn-glow" style="width:100%; justify-content:center; margin-top: 10px;" onclick="executeSwap()">Execute Swap</button>
+        <div style="display: flex; gap: 8px; margin-top: 10px;">
+          <button class="btn-glow" style="flex:1; justify-content:center;" onclick="executeSwap()">Swap</button>
+          <a href="https://ponsfamily.com/launchpad/0x963d4178184b2b1a95d532f846060a1bfa3596fd" target="_blank" class="btn-outline" style="flex:1; text-align:center; justify-content:center;">Buy Launchpad</a>
+        </div>
       </div>
 
       <!-- STAKING VAULT -->
@@ -774,7 +817,7 @@
     </div>
   </section>
 
-  <!-- Defender Mini Game (Touch & Mouse Optimized) -->
+  <!-- Game Section -->
   <section class="game-section" id="game">
     <div class="section-title" data-aos="fade-up">
       <h2>Genesis AI Defender</h2>
@@ -866,11 +909,12 @@
     </div>
   </section>
 
-  <!-- Footer with Socials -->
+  <!-- Footer -->
   <footer>
     <div style="margin-bottom: 12px; display: flex; justify-content: center; gap: 15px;">
       <a href="https://x.com/GenesisAIRH" target="_blank" style="color:var(--primary); font-size: 18px;"><i class="fa-brands fa-x-twitter"></i></a>
-      <a href="https://t.me/+SHZ4YANpFo4wNmU1" target="_blank" style="color:var(--primary); font-size: 18px;"><i class="fa-brands fa-telegram"></i></a>
+      <a href="https://t.me/GenesisAIRH" target="_blank" style="color:var(--primary); font-size: 18px;"><i class="fa-brands fa-telegram"></i></a>
+      <a href="https://dexscreener.com/robinhood/0x72771896312eafed84b90ea992289bd454067f36" target="_blank" style="color:#10b981; font-size: 18px;"><i class="fa-solid fa-chart-line"></i></a>
     </div>
     <p>© 2026 Genesis AI ($GEN). Deployed on Robinhood Chain.</p>
   </footer>
@@ -897,7 +941,15 @@
   <script>
     AOS.init({ duration: 800, once: true });
 
-    // Typing Subheadline Effect
+    // Copy Contract Address Function
+    function copyCA() {
+      const ca = document.getElementById("caText").innerText;
+      navigator.clipboard.writeText(ca).then(() => {
+        alert("Contract Address Copied: " + ca);
+      });
+    }
+
+    // Typing Effect
     const words = ["The First Self-Evolving AI on Robinhood Chain.", "Autonomous Trading Intelligence.", "3,000% APY Staking Engine."];
     let wordIdx = 0, charIdx = 0, isDeleting = false;
     
@@ -931,7 +983,7 @@
       glow.style.top = e.clientY + 'px';
     });
 
-    // Background Particles
+    // Background Canvas
     const bgCanvas = document.getElementById('bgCanvas');
     const bgCtx = bgCanvas.getContext('2d');
     let particles = [];
@@ -1015,14 +1067,8 @@
       alert("Staked Successfully!");
     }
 
-    function claimRewards() {
-      alert("Rewards Claimed!");
-    }
-
-    // FAQ Accordion
-    function toggleFaq(el) {
-      el.classList.toggle("active");
-    }
+    function claimRewards() { alert("Rewards Claimed!"); }
+    function toggleFaq(el) { el.classList.toggle("active"); }
 
     // Chart.js
     const ctx = document.getElementById('tokenomicsChart').getContext('2d');
@@ -1042,7 +1088,7 @@
       }
     });
 
-    // Game Lock & Logic
+    // Game Logic
     function unlockGame() {
       const val = document.getElementById("gameWalletInput").value;
       if (val.length > 5) {
@@ -1104,7 +1150,6 @@
     function gameLoop() {
       gCtx.clearRect(0, 0, gCanvas.width, gCanvas.height);
 
-      // Core Draw
       gCtx.beginPath();
       gCtx.arc(core.x, core.y, 20, 0, Math.PI * 2);
       gCtx.fillStyle = "#00f0ff";
@@ -1112,7 +1157,6 @@
       gCtx.shadowColor = "#00f0ff";
       gCtx.fill();
 
-      // Enemies Draw
       for (let i = 0; i < enemies.length; i++) {
         let en = enemies[i];
         let dx = core.x - en.x;
@@ -1138,7 +1182,6 @@
         }
       }
 
-      // HUD Text
       gCtx.fillStyle = "#fff";
       gCtx.font = "12px Orbitron";
       gCtx.fillText("HP: " + core.hp + "%", 15, 25);

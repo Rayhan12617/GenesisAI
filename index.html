@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Genesis AI ($GEN) | Next-Gen AI Protocol on Robinhood Chain</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Genesis AI ($GEN) | AI Protocol on Robinhood Chain</title>
   
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@500;600;700&family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@600;700&family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
   
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -19,8 +19,8 @@
   <style>
     :root {
       --bg: #05070a;
-      --card-bg: rgba(15, 23, 42, 0.65);
-      --card-border: rgba(0, 240, 255, 0.15);
+      --card-bg: rgba(15, 23, 42, 0.7);
+      --card-border: rgba(0, 240, 255, 0.2);
       --primary: #00f0ff;
       --secondary: #7c3aed;
       --accent: #f43f5e;
@@ -34,6 +34,7 @@
       margin: 0;
       padding: 0;
       scroll-behavior: smooth;
+      -webkit-tap-highlight-color: transparent;
     }
 
     body {
@@ -41,10 +42,10 @@
       color: var(--text);
       font-family: 'Plus Jakarta Sans', sans-serif;
       overflow-x: hidden;
-      line-height: 1.6;
+      line-height: 1.5;
     }
 
-    /* Canvas Particle Background */
+    /* Particle Background Canvas */
     #bgCanvas {
       position: fixed;
       top: 0;
@@ -58,68 +59,65 @@
     /* Mouse Glow Effect */
     .mouse-glow {
       position: fixed;
-      width: 400px;
-      height: 400px;
+      width: 300px;
+      height: 300px;
       border-radius: 50%;
       background: radial-gradient(circle, rgba(0, 240, 255, 0.08) 0%, rgba(0,0,0,0) 70%);
       pointer-events: none;
       z-index: -1;
       transform: translate(-50%, -50%);
-      transition: width 0.2s, height 0.2s;
     }
 
     /* Glassmorphism Styles */
     .glass-panel {
       background: var(--card-bg);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
       border: 1px solid var(--card-border);
-      border-radius: 24px;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
-      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      transition: transform 0.3s ease, border-color 0.3s ease;
     }
 
     .glass-panel:hover {
       border-color: rgba(0, 240, 255, 0.4);
-      box-shadow: 0 0 30px rgba(0, 240, 255, 0.2);
     }
 
-    /* Navigation */
+    /* Navigation Header */
     header {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
-      padding: 16px 5%;
+      padding: 12px 5%;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background: rgba(5, 7, 10, 0.8);
-      backdrop-filter: blur(16px);
+      background: rgba(5, 7, 10, 0.85);
+      backdrop-filter: blur(12px);
       z-index: 1000;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     }
 
     .brand {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
       text-decoration: none;
     }
 
     .brand img {
-      width: 42px;
-      height: 42px;
+      width: 36px;
+      height: 36px;
       border-radius: 50%;
       border: 2px solid var(--primary);
-      box-shadow: 0 0 15px rgba(0, 240, 255, 0.5);
     }
 
     .brand-title {
       font-family: 'Orbitron', sans-serif;
-      font-size: 22px;
+      font-size: 18px;
       font-weight: 900;
-      letter-spacing: 1.5px;
+      letter-spacing: 1px;
       background: linear-gradient(90deg, #fff, var(--primary));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -127,50 +125,49 @@
 
     .nav-links {
       display: flex;
-      gap: 25px;
+      gap: 20px;
       list-style: none;
     }
 
     .nav-links a {
       color: var(--text-dim);
       text-decoration: none;
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 600;
       transition: color 0.3s;
     }
 
     .nav-links a:hover {
       color: var(--primary);
-      text-shadow: 0 0 10px var(--primary);
     }
 
     .btn-glow {
-      padding: 10px 24px;
-      border-radius: 30px;
+      padding: 8px 18px;
+      border-radius: 25px;
       background: linear-gradient(135deg, var(--primary), var(--secondary));
       color: #fff;
       font-family: 'Rajdhani', sans-serif;
       font-weight: 700;
-      font-size: 16px;
+      font-size: 15px;
       border: none;
       cursor: pointer;
-      box-shadow: 0 0 20px rgba(0, 240, 255, 0.4);
+      box-shadow: 0 0 15px rgba(0, 240, 255, 0.3);
       transition: all 0.3s ease;
       text-decoration: none;
       display: inline-flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
     }
 
     .btn-glow:hover {
       transform: translateY(-2px);
-      box-shadow: 0 0 30px rgba(124, 58, 237, 0.8);
+      box-shadow: 0 0 25px rgba(124, 58, 237, 0.6);
     }
 
     /* Hero Section */
     .hero-section {
       min-height: 100vh;
-      padding: 140px 5% 60px;
+      padding: 110px 5% 40px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -188,78 +185,82 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      opacity: 0.15;
-      filter: blur(4px);
+      opacity: 0.12;
+      filter: blur(3px);
     }
 
     .hero-content {
-      max-width: 650px;
+      max-width: 600px;
     }
 
     .hero-tag {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      padding: 6px 16px;
+      gap: 6px;
+      padding: 5px 14px;
       border-radius: 20px;
       background: rgba(0, 240, 255, 0.1);
       border: 1px solid var(--primary);
       color: var(--primary);
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 700;
-      margin-bottom: 20px;
+      margin-bottom: 15px;
     }
 
     .hero h1 {
       font-family: 'Orbitron', sans-serif;
-      font-size: 56px;
+      font-size: clamp(32px, 5vw, 54px);
       font-weight: 900;
-      line-height: 1.1;
-      margin-bottom: 20px;
-      background: linear-gradient(180deg, #ffffff 40%, var(--primary) 100%);
+      line-height: 1.15;
+      margin-bottom: 15px;
+      background: linear-gradient(180deg, #ffffff 30%, var(--primary) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
 
     .hero p {
-      font-size: 18px;
+      font-size: clamp(14px, 2vw, 16px);
       color: var(--text-dim);
-      margin-bottom: 35px;
+      margin-bottom: 25px;
     }
 
     .hero-btns {
       display: flex;
-      gap: 15px;
+      gap: 10px;
       flex-wrap: wrap;
     }
 
     .btn-outline {
-      padding: 10px 24px;
-      border-radius: 30px;
+      padding: 8px 18px;
+      border-radius: 25px;
       background: rgba(255, 255, 255, 0.05);
       border: 1px solid var(--card-border);
       color: #fff;
       font-family: 'Rajdhani', sans-serif;
       font-weight: 700;
-      font-size: 16px;
+      font-size: 15px;
       cursor: pointer;
       text-decoration: none;
       transition: all 0.3s;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
     }
 
     .btn-outline:hover {
-      background: rgba(255, 255, 255, 0.15);
+      background: rgba(255, 255, 255, 0.12);
       border-color: var(--primary);
     }
 
-    /* Hologram Visual Container */
+    /* Hero Hologram Core */
     .hero-visual {
       position: relative;
-      width: 420px;
-      height: 420px;
+      width: clamp(250px, 30vw, 360px);
+      height: clamp(250px, 30vw, 360px);
       display: flex;
       justify-content: center;
       align-items: center;
+      margin: 0 auto;
     }
 
     .holo-ring {
@@ -270,19 +271,19 @@
     }
 
     .holo-ring:nth-child(1) { width: 100%; height: 100%; opacity: 0.3; }
-    .holo-ring:nth-child(2) { width: 80%; height: 80%; border-color: var(--secondary); animation-duration: 15s; animation-direction: reverse; }
+    .holo-ring:nth-child(2) { width: 80%; height: 80%; border-color: var(--secondary); animation-duration: 12s; animation-direction: reverse; }
 
     @keyframes rotateRing {
       100% { transform: rotate(360deg); }
     }
 
     .holo-core {
-      width: 200px;
-      height: 200px;
+      width: 55%;
+      height: 55%;
       border-radius: 50%;
       overflow: hidden;
       border: 3px solid var(--primary);
-      box-shadow: 0 0 50px rgba(0, 240, 255, 0.6);
+      box-shadow: 0 0 35px rgba(0, 240, 255, 0.5);
       animation: floatCore 4s ease-in-out infinite;
     }
 
@@ -294,20 +295,20 @@
 
     @keyframes floatCore {
       0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-15px); }
+      50% { transform: translateY(-10px); }
     }
 
-    /* Live Dashboard Counters */
+    /* Live Dashboard Stats */
     .stats-section {
-      padding: 40px 5%;
-      margin-top: -40px;
+      padding: 20px 5%;
+      margin-top: -20px;
     }
 
     .stats-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-      gap: 20px;
-      padding: 30px;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+      padding: 20px;
     }
 
     .stat-card {
@@ -316,98 +317,95 @@
 
     .stat-number {
       font-family: 'Orbitron', sans-serif;
-      font-size: 26px;
+      font-size: clamp(20px, 3vw, 26px);
       font-weight: 900;
       color: var(--primary);
-      margin-bottom: 5px;
     }
 
     .stat-label {
-      font-size: 13px;
+      font-size: 12px;
       color: var(--text-dim);
       text-transform: uppercase;
       letter-spacing: 1px;
     }
 
-    /* Common Section Formatting */
+    /* Section Titles */
     .section-title {
       text-align: center;
-      margin-bottom: 50px;
+      margin-bottom: 35px;
     }
 
     .section-title h2 {
       font-family: 'Orbitron', sans-serif;
-      font-size: 36px;
+      font-size: clamp(24px, 4vw, 34px);
       font-weight: 900;
       color: #fff;
     }
 
     .section-title p {
       color: var(--text-dim);
-      font-size: 16px;
+      font-size: 14px;
     }
 
-    /* AI Features Grid */
-    .features-section { padding: 80px 5%; }
+    /* Features Grid */
+    .features-section { padding: 50px 5%; }
     .features-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 25px;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
     }
 
     .feature-card {
-      padding: 30px;
-      position: relative;
-      overflow: hidden;
+      padding: 24px;
     }
 
     .feature-icon {
-      font-size: 36px;
+      font-size: 30px;
       color: var(--primary);
-      margin-bottom: 20px;
+      margin-bottom: 15px;
     }
 
     .feature-card h3 {
       font-family: 'Orbitron', sans-serif;
-      font-size: 20px;
-      margin-bottom: 10px;
+      font-size: 18px;
+      margin-bottom: 8px;
     }
 
     .feature-card p {
       color: var(--text-dim);
-      font-size: 14px;
+      font-size: 13px;
     }
 
-    /* Swap & Staking Layout */
-    .defi-section { padding: 80px 5%; }
+    /* DeFi Grid (Swap & Staking) */
+    .defi-section { padding: 50px 5%; }
     .defi-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
-      gap: 30px;
-      max-width: 1100px;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 25px;
+      max-width: 1000px;
       margin: 0 auto;
     }
 
     .swap-box {
       background: rgba(3, 7, 18, 0.8);
       border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 16px;
-      padding: 16px;
-      margin-bottom: 12px;
+      border-radius: 14px;
+      padding: 14px;
+      margin-bottom: 10px;
     }
 
     .swap-input-row {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-top: 8px;
+      margin-top: 6px;
     }
 
     .swap-input {
       background: transparent;
       border: none;
       color: #fff;
-      font-size: 24px;
+      font-size: 20px;
       font-weight: 700;
       width: 50%;
       outline: none;
@@ -417,47 +415,46 @@
     .token-badge {
       display: flex;
       align-items: center;
-      gap: 8px;
-      background: rgba(255, 255, 255, 0.1);
-      padding: 6px 14px;
+      gap: 6px;
+      background: rgba(255, 255, 255, 0.08);
+      padding: 5px 12px;
       border-radius: 20px;
       font-weight: bold;
-      font-size: 14px;
+      font-size: 13px;
     }
 
-    .token-icon { width: 22px; height: 22px; border-radius: 50%; }
+    .token-icon { width: 20px; height: 20px; border-radius: 50%; }
 
-    /* Mini Game Section */
-    .game-section { padding: 80px 5%; text-align: center; }
+    /* Mini Game */
+    .game-section { padding: 50px 5%; text-align: center; }
     .game-container {
-      max-width: 800px;
+      max-width: 750px;
       margin: 0 auto;
-      padding: 25px;
-      position: relative;
+      padding: 15px;
     }
 
     .game-canvas-wrapper {
       position: relative;
       width: 100%;
-      height: 400px;
-      border-radius: 16px;
+      height: 350px;
+      border-radius: 14px;
       overflow: hidden;
       border: 2px solid var(--primary);
       background: #020408;
-      margin-top: 20px;
+      margin-top: 15px;
     }
 
     #gameCanvas {
       width: 100%;
       height: 100%;
       display: block;
-      cursor: crosshair;
+      touch-action: none;
     }
 
     .game-overlay {
       position: absolute;
       inset: 0;
-      background: rgba(5, 7, 10, 0.9);
+      background: rgba(5, 7, 10, 0.92);
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -467,82 +464,84 @@
     }
 
     .game-overlay input {
-      padding: 12px 20px;
-      border-radius: 25px;
+      padding: 10px 16px;
+      border-radius: 20px;
       border: 1px solid var(--primary);
       background: rgba(255, 255, 255, 0.05);
       color: #fff;
       font-family: 'Orbitron', sans-serif;
+      font-size: 12px;
       text-align: center;
-      width: 80%;
-      max-width: 380px;
-      margin-bottom: 15px;
+      width: 90%;
+      max-width: 320px;
+      margin-bottom: 12px;
       outline: none;
     }
 
-    /* Roadmap Grid */
-    .roadmap-section { padding: 80px 5%; }
+    /* Roadmap */
+    .roadmap-section { padding: 50px 5%; }
     .roadmap-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-      gap: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
     }
 
     .roadmap-card h4 {
       font-family: 'Orbitron', sans-serif;
       color: var(--primary);
-      margin-bottom: 10px;
+      font-size: 15px;
+      margin-bottom: 8px;
     }
 
     .roadmap-card ul {
       list-style: none;
       color: var(--text-dim);
-      font-size: 14px;
+      font-size: 13px;
     }
 
-    .roadmap-card ul li { margin-bottom: 6px; }
+    .roadmap-card ul li { margin-bottom: 5px; }
 
     /* Accordion FAQ */
-    .faq-section { padding: 80px 5%; max-width: 800px; margin: 0 auto; }
+    .faq-section { padding: 50px 5%; max-width: 750px; margin: 0 auto; }
     .faq-item {
-      margin-bottom: 15px;
-      border-radius: 16px;
+      margin-bottom: 12px;
+      border-radius: 12px;
       overflow: hidden;
     }
 
     .faq-question {
-      padding: 20px;
+      padding: 16px;
       background: rgba(255, 255, 255, 0.03);
       cursor: pointer;
       display: flex;
       justify-content: space-between;
       align-items: center;
       font-family: 'Orbitron', sans-serif;
-      font-size: 16px;
+      font-size: 14px;
     }
 
     .faq-answer {
-      padding: 0 20px;
+      padding: 0 16px;
       max-height: 0;
       overflow: hidden;
       transition: all 0.3s ease;
       color: var(--text-dim);
-      font-size: 14px;
+      font-size: 13px;
     }
 
     .faq-item.active .faq-answer {
-      padding: 20px;
+      padding: 16px;
       max-height: 200px;
       background: rgba(0, 0, 0, 0.3);
     }
 
-    /* Wallet Modal */
+    /* Modal */
     .modal {
       display: none;
       position: fixed;
       inset: 0;
       background: rgba(0, 0, 0, 0.85);
-      backdrop-filter: blur(12px);
+      backdrop-filter: blur(10px);
       z-index: 2000;
       justify-content: center;
       align-items: center;
@@ -550,43 +549,47 @@
 
     .modal-content {
       width: 90%;
-      max-width: 400px;
-      padding: 30px;
+      max-width: 360px;
+      padding: 24px;
       text-align: center;
-      position: relative;
     }
 
     .wallet-opt {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 14px 20px;
-      border-radius: 14px;
+      padding: 12px 16px;
+      border-radius: 12px;
       background: rgba(255, 255, 255, 0.05);
       border: 1px solid rgba(255, 255, 255, 0.1);
-      margin-top: 12px;
+      margin-top: 10px;
       cursor: pointer;
-      transition: all 0.3s;
-    }
-
-    .wallet-opt:hover {
-      border-color: var(--primary);
-      background: rgba(0, 240, 255, 0.1);
-    }
-
-    footer {
-      padding: 40px 5%;
-      border-top: 1px solid rgba(255, 255, 255, 0.05);
-      text-align: center;
-      color: var(--text-dim);
       font-size: 14px;
     }
 
+    footer {
+      padding: 30px 5%;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      text-align: center;
+      color: var(--text-dim);
+      font-size: 13px;
+    }
+
+    /* Mobile Adaptations */
     @media (max-width: 992px) {
-      .hero-section { flex-direction: column; text-align: center; }
-      .hero-visual { margin-top: 50px; }
-      .hero h1 { font-size: 40px; }
-      .nav-links { display: none; }
+      .hero-section {
+        flex-direction: column;
+        text-align: center;
+        padding-top: 90px;
+      }
+
+      .hero-visual {
+        margin-top: 35px;
+      }
+
+      .nav-links {
+        display: none;
+      }
     }
   </style>
 </head>
@@ -595,7 +598,7 @@
   <canvas id="bgCanvas"></canvas>
   <div class="mouse-glow" id="mouseGlow"></div>
 
-  <!-- Sticky Navbar -->
+  <!-- Header / Navigation -->
   <header>
     <a href="#" class="brand">
       <img src="https://i.imgur.com/U27v8N6.jpeg" alt="Genesis AI">
@@ -612,7 +615,7 @@
       <li><a href="#faq">FAQ</a></li>
     </ul>
     <button class="btn-glow" id="walletBtn" onclick="openWalletModal()">
-      <i class="fa-solid fa-wallet"></i> Connect Wallet
+      <i class="fa-solid fa-wallet"></i> Connect
     </button>
   </header>
 
@@ -627,17 +630,17 @@
         <i class="fa-solid fa-bolt"></i> ROBINHOOD CHAIN PROTOCOL
       </div>
       <h1>Genesis AI</h1>
-      <p id="typingText" style="min-height: 28px; font-weight: 600; color: var(--primary);"></p>
+      <p id="typingText" style="min-height: 24px; font-weight: 600; color: var(--primary);"></p>
       <p>Building the next generation of autonomous trading, self-evolving neural security, and decentralized staking intelligence on Robinhood Chain.</p>
       
-      <div class="hero-btns">
+      <div class="hero-btns" style="justify-content: center;">
         <a href="#swap" class="btn-glow"><i class="fa-solid fa-cart-shopping"></i> Buy GEN</a>
         <a href="#staking" class="btn-outline"><i class="fa-solid fa-coins"></i> Stake Now</a>
-        <a href="https://x.com/GenesisAIRH" target="_blank" class="btn-outline"><i class="fa-brands fa-x-twitter"></i> Join X</a>
+        <a href="https://x.com/GenesisAIRH" target="_blank" class="btn-outline"><i class="fa-brands fa-x-twitter"></i> X</a>
+        <a href="https://t.me/+SHZ4YANpFo4wNmU1" target="_blank" class="btn-outline" style="border-color: var(--primary);"><i class="fa-brands fa-telegram"></i> Telegram</a>
       </div>
     </div>
 
-    <!-- Hologram Core Visual -->
     <div class="hero-visual" data-aos="zoom-in">
       <div class="holo-ring"></div>
       <div class="holo-ring"></div>
@@ -647,7 +650,7 @@
     </div>
   </section>
 
-  <!-- Live Dashboard -->
+  <!-- Updated Dashboard Stats (Only Total Supply, Burned, Status) -->
   <section class="stats-section">
     <div class="glass-panel stats-grid" data-aos="fade-up">
       <div class="stat-card">
@@ -655,55 +658,43 @@
         <div class="stat-label">Total Supply</div>
       </div>
       <div class="stat-card">
-        <div class="stat-number">12,450+</div>
-        <div class="stat-label">Holders</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-number">$4.2M</div>
-        <div class="stat-label">Liquidity</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-number">$18.5M</div>
-        <div class="stat-label">Market Cap</div>
-      </div>
-      <div class="stat-card">
         <div class="stat-number" style="color:var(--accent);">150M $GEN</div>
         <div class="stat-label">Burned Tokens</div>
       </div>
       <div class="stat-card">
         <div class="stat-number" style="color:#10b981;">ACTIVE</div>
-        <div class="stat-label">AI Status</div>
+        <div class="stat-label">AI System Status</div>
       </div>
     </div>
   </section>
 
-  <!-- AI Features Section -->
+  <!-- Features -->
   <section class="features-section" id="features">
     <div class="section-title" data-aos="fade-up">
-      <h2>Autonomous AI Ecosystem</h2>
-      <p>Cutting-edge artificial intelligence infrastructure driving the Robinhood Chain</p>
+      <h2>Autonomous AI Engine</h2>
+      <p>Cutting-edge neural infrastructure on Robinhood Chain</p>
     </div>
 
     <div class="features-grid">
-      <div class="glass-panel feature-card" data-aos="fade-up" data-aos-delay="100">
+      <div class="glass-panel feature-card" data-aos="fade-up">
         <i class="fa-solid fa-brain feature-icon"></i>
         <h3>AI Intelligence</h3>
-        <p>Self-learning neural algorithms analyzing real-time blockchain telemetry and token velocity.</p>
+        <p>Self-learning neural algorithms analyzing real-time blockchain telemetry.</p>
+      </div>
+
+      <div class="glass-panel feature-card" data-aos="fade-up" data-aos-delay="100">
+        <i class="fa-solid fa-shield-halved feature-icon"></i>
+        <h3>AI Security</h3>
+        <p>Automated contract defense detecting malware and malicious bot actions.</p>
       </div>
 
       <div class="glass-panel feature-card" data-aos="fade-up" data-aos-delay="200">
-        <i class="fa-solid fa-shield-halved feature-icon"></i>
-        <h3>AI Security</h3>
-        <p>Automated contract defense shield detecting flash loan attacks and malicious bot actions.</p>
+        <i class="fa-solid fa-chart-line feature-icon"></i>
+        <h3>Trading Signals</h3>
+        <p>High-frequency predictive signals generated directly for $GEN stakers.</p>
       </div>
 
       <div class="glass-panel feature-card" data-aos="fade-up" data-aos-delay="300">
-        <i class="fa-solid fa-chart-line feature-icon"></i>
-        <h3>AI Trading Signals</h3>
-        <p>High-frequency Predictive algorithmic signals generated directly for $GEN stakers.</p>
-      </div>
-
-      <div class="glass-panel feature-card" data-aos="fade-up" data-aos-delay="400">
         <i class="fa-solid fa-robot feature-icon"></i>
         <h3>AI Automation</h3>
         <p>Seamless automated portfolio rebalancing and compound yield optimization.</p>
@@ -711,32 +702,32 @@
     </div>
   </section>
 
-  <!-- Swap & Staking Grid -->
+  <!-- DeFi Grid (Updated Swap with ETH) -->
   <section class="defi-section">
     <div class="defi-grid">
       
       <!-- SWAP WIDGET -->
-      <div class="glass-panel" style="padding: 30px;" id="swap" data-aos="fade-right">
-        <h3 style="font-family:'Orbitron'; margin-bottom: 20px;"><i class="fa-solid fa-rotate"></i> Instant Swap</h3>
+      <div class="glass-panel" style="padding: 24px;" id="swap" data-aos="fade-right">
+        <h3 style="font-family:'Orbitron'; margin-bottom: 15px; font-size: 18px;"><i class="fa-solid fa-rotate"></i> Instant Swap</h3>
         
         <div class="swap-box">
-          <div style="display:flex; justify-content:space-between; font-size:12px; color:var(--text-dim);">
+          <div style="display:flex; justify-content:space-between; font-size:11px; color:var(--text-dim);">
             <span>YOU PAY</span>
             <span>Bal: <strong id="ethBal">1.50</strong> ETH</span>
           </div>
           <div class="swap-input-row">
             <input type="number" id="ethPay" class="swap-input" placeholder="0.0" oninput="calcSwap()">
             <div class="token-badge">
-              <span style="background:#627eea; width:18px; height:18px; border-radius:50%; display:inline-block; text-align:center; font-size:11px; font-weight:bold;">Ξ</span>
-              RH-ETH
+              <span style="background:#627eea; width:16px; height:16px; border-radius:50%; display:inline-block; text-align:center; font-size:10px; font-weight:bold;">Ξ</span>
+              ETH
             </div>
           </div>
         </div>
 
-        <div style="text-align:center; margin:-6px 0; color:var(--primary);"><i class="fa-solid fa-arrow-down-long"></i></div>
+        <div style="text-align:center; margin:-4px 0; color:var(--primary); font-size:12px;"><i class="fa-solid fa-arrow-down-long"></i></div>
 
         <div class="swap-box">
-          <div style="display:flex; justify-content:space-between; font-size:12px; color:var(--text-dim);">
+          <div style="display:flex; justify-content:space-between; font-size:11px; color:var(--text-dim);">
             <span>YOU RECEIVE</span>
             <span>Bal: <strong id="genBal">0.00</strong> GEN</span>
           </div>
@@ -749,33 +740,24 @@
           </div>
         </div>
 
-        <div style="font-size:12px; color:var(--text-dim); margin: 15px 0;">
-          <div style="display:flex; justify-content:space-between; margin-bottom:4px;">
-            <span>Price Impact:</span> <span style="color:#10b981;"><0.01%</span>
-          </div>
-          <div style="display:flex; justify-content:space-between;">
-            <span>Network Fee:</span> <span>~0.0004 ETH</span>
-          </div>
-        </div>
-
-        <button class="btn-glow" style="width:100%; justify-content:center;" onclick="executeSwap()">Execute Swap</button>
+        <button class="btn-glow" style="width:100%; justify-content:center; margin-top: 10px;" onclick="executeSwap()">Execute Swap</button>
       </div>
 
       <!-- STAKING VAULT -->
-      <div class="glass-panel" style="padding: 30px;" id="staking" data-aos="fade-left">
-        <h3 style="font-family:'Orbitron'; margin-bottom: 20px;"><i class="fa-solid fa-vault"></i> Staking Vault</h3>
+      <div class="glass-panel" style="padding: 24px;" id="staking" data-aos="fade-left">
+        <h3 style="font-family:'Orbitron'; margin-bottom: 15px; font-size: 18px;"><i class="fa-solid fa-vault"></i> Staking Vault</h3>
         
-        <div style="background: linear-gradient(90deg, rgba(251, 191, 36, 0.15), rgba(244, 63, 94, 0.15)); border:1px solid var(--gold); border-radius:12px; padding:12px; text-align:center; margin-bottom:20px;">
-          <span style="font-family:'Orbitron'; color:var(--gold); font-weight:bold; font-size:18px;">3,000% APY YIELD</span>
+        <div style="background: rgba(251, 191, 36, 0.15); border:1px solid var(--gold); border-radius:10px; padding:8px; text-align:center; margin-bottom:15px;">
+          <span style="font-family:'Orbitron'; color:var(--gold); font-weight:bold; font-size:15px;">3,000% APY YIELD</span>
         </div>
 
         <div class="swap-box">
-          <div style="display:flex; justify-content:space-between; font-size:12px; color:var(--text-dim);">
+          <div style="display:flex; justify-content:space-between; font-size:11px; color:var(--text-dim);">
             <span>AMOUNT TO STAKE</span>
             <span>Staked: <strong id="stakedAmount">0.00</strong> GEN</span>
           </div>
           <div class="swap-input-row">
-            <input type="number" id="stakeInput" class="swap-input" placeholder="0.0" oninput="calcStake()">
+            <input type="number" id="stakeInput" class="swap-input" placeholder="0.0">
             <div class="token-badge">
               <img src="https://i.imgur.com/U27v8N6.jpeg" class="token-icon">
               $GEN
@@ -783,18 +765,7 @@
           </div>
         </div>
 
-        <div style="background: rgba(255,255,255,0.03); padding: 12px; border-radius: 12px; font-size: 13px; color: var(--text-dim); margin-bottom: 15px;">
-          <div style="display:flex; justify-content:space-between; margin-bottom: 4px;">
-            <span>Live Earned Rewards:</span>
-            <strong id="liveRewards" style="color:var(--gold);">0.000 $GEN</strong>
-          </div>
-          <div style="display:flex; justify-content:space-between;">
-            <span>Est. Yearly Return:</span>
-            <strong id="yearlyReturn" style="color:var(--primary);">0 $GEN</strong>
-          </div>
-        </div>
-
-        <div style="display:flex; gap:10px;">
+        <div style="display:flex; gap:10px; margin-top:15px;">
           <button class="btn-glow" style="flex:1; justify-content:center; background: linear-gradient(135deg, var(--gold), var(--accent));" onclick="executeStake()">Stake</button>
           <button class="btn-outline" style="flex:1; text-align:center;" onclick="claimRewards()">Claim</button>
         </div>
@@ -803,84 +774,76 @@
     </div>
   </section>
 
-  <!-- Genesis AI Defender Game -->
+  <!-- Defender Mini Game (Touch & Mouse Optimized) -->
   <section class="game-section" id="game">
     <div class="section-title" data-aos="fade-up">
       <h2>Genesis AI Defender</h2>
-      <p>Protect the Core from Malware Attacks & Earn Neural Points</p>
+      <p>Protect the Core from Viruses using touch/mouse</p>
     </div>
 
     <div class="glass-panel game-container" data-aos="zoom-in">
-      
       <div class="game-canvas-wrapper">
-        <!-- Lock Overlay -->
         <div class="game-overlay" id="gameOverlay">
-          <i class="fa-solid fa-lock" style="font-size: 40px; color: var(--primary); margin-bottom: 15px;"></i>
-          <h3 style="font-family:'Orbitron'; margin-bottom: 10px;">Connect Wallet To Play</h3>
-          <p style="font-size: 13px; color: var(--text-dim); margin-bottom: 15px;">Enter your Robinhood EVM address to unlock defender access.</p>
+          <i class="fa-solid fa-shield-halved" style="font-size: 32px; color: var(--primary); margin-bottom: 10px;"></i>
+          <h3 style="font-family:'Orbitron'; margin-bottom: 8px; font-size: 16px;">Connect Wallet To Play</h3>
           <input type="text" id="gameWalletInput" placeholder="0x... Robinhood Address">
           <button class="btn-glow" onclick="unlockGame()">Start Protocol</button>
         </div>
 
-        <canvas id="gameCanvas" width="750" height="400"></canvas>
+        <canvas id="gameCanvas"></canvas>
       </div>
-
     </div>
   </section>
 
   <!-- Tokenomics Section -->
   <section class="features-section" id="tokenomics">
     <div class="section-title" data-aos="fade-up">
-      <h2>Tokenomics Architecture</h2>
-      <p>Balanced supply distribution engineered for long-term scarcity and growth</p>
+      <h2>Tokenomics</h2>
+      <p>1,000,000,000 Total Supply Allocation</p>
     </div>
 
-    <div style="max-width: 600px; margin: 0 auto;" class="glass-panel" data-aos="fade-up">
-      <canvas id="tokenomicsChart" style="padding:20px;"></canvas>
+    <div style="max-width: 450px; margin: 0 auto;" class="glass-panel" data-aos="fade-up">
+      <canvas id="tokenomicsChart" style="padding:15px;"></canvas>
     </div>
   </section>
 
   <!-- Roadmap Section -->
   <section class="roadmap-section" id="roadmap">
     <div class="section-title" data-aos="fade-up">
-      <h2>System Roadmap</h2>
-      <p>Phase-by-phase evolution of the Genesis AI Engine</p>
+      <h2>Roadmap</h2>
     </div>
 
     <div class="roadmap-grid">
-      <div class="glass-panel roadmap-card" style="padding:25px;" data-aos="fade-up" data-aos-delay="100">
-        <h4>PHASE 01: INITIALIZATION</h4>
+      <div class="glass-panel roadmap-card" style="padding:20px;" data-aos="fade-up">
+        <h4>PHASE 01</h4>
         <ul>
-          <li><i class="fa-solid fa-check" style="color:var(--primary);"></i> Smart Contract Deploy</li>
+          <li><i class="fa-solid fa-check" style="color:var(--primary);"></i> Contract Deploy</li>
           <li><i class="fa-solid fa-check" style="color:var(--primary);"></i> Robinhood Chain Launch</li>
-          <li><i class="fa-solid fa-check" style="color:var(--primary);"></i> Community Building</li>
+          <li><i class="fa-solid fa-check" style="color:var(--primary);"></i> Telegram Community</li>
         </ul>
       </div>
 
-      <div class="glass-panel roadmap-card" style="padding:25px;" data-aos="fade-up" data-aos-delay="200">
-        <h4>PHASE 02: ECOSYSTEM</h4>
+      <div class="glass-panel roadmap-card" style="padding:20px;" data-aos="fade-up" data-aos-delay="100">
+        <h4>PHASE 02</h4>
         <ul>
-          <li><i class="fa-solid fa-spinner" style="color:var(--gold);"></i> AI Defender Game</li>
-          <li><i class="fa-solid fa-spinner" style="color:var(--gold);"></i> Staking Protocol</li>
-          <li><i class="fa-solid fa-spinner" style="color:var(--gold);"></i> DEX Aggregator</li>
+          <li><i class="fa-solid fa-spinner" style="color:var(--gold);"></i> Defender Mini-Game</li>
+          <li><i class="fa-solid fa-spinner" style="color:var(--gold);"></i> Staking Vault</li>
         </ul>
       </div>
 
-      <div class="glass-panel roadmap-card" style="padding:25px;" data-aos="fade-up" data-aos-delay="300">
-        <h4>PHASE 03: INTELLIGENCE</h4>
+      <div class="glass-panel roadmap-card" style="padding:20px;" data-aos="fade-up" data-aos-delay="200">
+        <h4>PHASE 03</h4>
         <ul>
-          <li><i class="fa-regular fa-circle"></i> AI Marketplace</li>
-          <li><i class="fa-regular fa-circle"></i> Autonomous Agents</li>
+          <li><i class="fa-regular fa-circle"></i> AI Agents</li>
           <li><i class="fa-regular fa-circle"></i> DAO Governance</li>
         </ul>
       </div>
 
-      <div class="glass-panel roadmap-card" style="padding:25px;" data-aos="fade-up" data-aos-delay="400">
-        <h4>PHASE 04: EXPANSION</h4>
+      <div class="glass-panel roadmap-card" style="padding:20px;" data-aos="fade-up" data-aos-delay="300">
+        <h4>PHASE 04</h4>
         <ul>
           <li><i class="fa-regular fa-circle"></i> Tier-1 CEX Listings</li>
-          <li><i class="fa-regular fa-circle"></i> Global AI Summit</li>
-          <li><i class="fa-regular fa-circle"></i> Institutional Bridge</li>
+          <li><i class="fa-regular fa-circle"></i> Mass Adoption</li>
         </ul>
       </div>
     </div>
@@ -889,7 +852,7 @@
   <!-- FAQ Section -->
   <section class="faq-section" id="faq">
     <div class="section-title" data-aos="fade-up">
-      <h2>Frequently Asked Questions</h2>
+      <h2>FAQ</h2>
     </div>
 
     <div class="faq-item glass-panel" onclick="toggleFaq(this)" data-aos="fade-up">
@@ -898,59 +861,43 @@
         <i class="fa-solid fa-chevron-down"></i>
       </div>
       <div class="faq-answer">
-        Genesis AI is an autonomous, self-evolving AI protocol built specifically for the Robinhood Chain ecosystem, providing smart trading signals, staking yield, and automated defense.
-      </div>
-    </div>
-
-    <div class="faq-item glass-panel" onclick="toggleFaq(this)" data-aos="fade-up">
-      <div class="faq-question">
-        <span>How does the 3,000% Staking APY work?</span>
-        <i class="fa-solid fa-chevron-down"></i>
-      </div>
-      <div class="faq-answer">
-        Rewards are generated dynamically from protocol transaction fees and ecosystem treasury distribution, allowing early stakers to compound high APY yields directly to their wallets.
+        Genesis AI is an autonomous, self-evolving AI protocol built specifically for the Robinhood Chain ecosystem.
       </div>
     </div>
   </section>
 
-  <!-- Footer -->
+  <!-- Footer with Socials -->
   <footer>
-    <div style="margin-bottom: 15px;">
-      <a href="https://x.com/GenesisAIRH" target="_blank" style="color:var(--primary); font-size: 20px; margin: 0 10px;"><i class="fa-brands fa-x-twitter"></i></a>
-      <a href="#" style="color:var(--primary); font-size: 20px; margin: 0 10px;"><i class="fa-brands fa-telegram"></i></a>
+    <div style="margin-bottom: 12px; display: flex; justify-content: center; gap: 15px;">
+      <a href="https://x.com/GenesisAIRH" target="_blank" style="color:var(--primary); font-size: 18px;"><i class="fa-brands fa-x-twitter"></i></a>
+      <a href="https://t.me/+SHZ4YANpFo4wNmU1" target="_blank" style="color:var(--primary); font-size: 18px;"><i class="fa-brands fa-telegram"></i></a>
     </div>
     <p>© 2026 Genesis AI ($GEN). Deployed on Robinhood Chain.</p>
   </footer>
 
-  <!-- Connect Wallet Modal -->
+  <!-- Modal -->
   <div class="modal" id="walletModal">
     <div class="glass-panel modal-content">
-      <h3 style="font-family:'Orbitron'; margin-bottom:15px; color:var(--primary);">Connect Wallet</h3>
-      <p style="font-size:13px; color:var(--text-dim); margin-bottom:15px;">Select your EVM Web3 Provider</p>
-
-      <div class="wallet-opt" onclick="connectWallet('Robinhood Wallet')">
-        <span>Robinhood Web3 App</span>
+      <h3 style="font-family:'Orbitron'; margin-bottom:12px; color:var(--primary); font-size: 16px;">Connect Wallet</h3>
+      <div class="wallet-opt" onclick="connectWallet('Robinhood')">
+        <span>Robinhood Wallet</span>
         <i class="fa-solid fa-shield-cat"></i>
       </div>
       <div class="wallet-opt" onclick="connectWallet('MetaMask')">
-        <span>MetaMask / Rabby</span>
+        <span>MetaMask</span>
         <i class="fa-solid fa-fox"></i>
-      </div>
-      <div class="wallet-opt" onclick="connectWallet('WalletConnect')">
-        <span>WalletConnect</span>
-        <i class="fa-solid fa-qrcode"></i>
       </div>
     </div>
   </div>
 
-  <!-- JS Dependencies -->
+  <!-- Scripts -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
   <script>
-    AOS.init({ duration: 1000, once: true });
+    AOS.init({ duration: 800, once: true });
 
-    // Typing Effect
+    // Typing Subheadline Effect
     const words = ["The First Self-Evolving AI on Robinhood Chain.", "Autonomous Trading Intelligence.", "3,000% APY Staking Engine."];
     let wordIdx = 0, charIdx = 0, isDeleting = false;
     
@@ -972,7 +919,7 @@
         wordIdx = (wordIdx + 1) % words.length;
         setTimeout(typeEffect, 500);
       } else {
-        setTimeout(typeEffect, isDeleting ? 40 : 80);
+        setTimeout(typeEffect, isDeleting ? 30 : 60);
       }
     }
     typeEffect();
@@ -984,7 +931,7 @@
       glow.style.top = e.clientY + 'px';
     });
 
-    // Background Particle Grid Canvas
+    // Background Particles
     const bgCanvas = document.getElementById('bgCanvas');
     const bgCtx = bgCanvas.getContext('2d');
     let particles = [];
@@ -996,12 +943,12 @@
     window.addEventListener('resize', resizeBg);
     resizeBg();
 
-    for (let i = 0; i < 60; i++) {
+    for (let i = 0; i < 40; i++) {
       particles.push({
         x: Math.random() * bgCanvas.width,
         y: Math.random() * bgCanvas.height,
-        vx: (Math.random() - 0.5) * 0.8,
-        vy: (Math.random() - 0.5) * 0.8,
+        vx: (Math.random() - 0.5) * 0.5,
+        vy: (Math.random() - 0.5) * 0.5,
         radius: Math.random() * 2
       });
     }
@@ -1026,19 +973,17 @@
     }
     animateBg();
 
-    // Wallet Logic
-    let activeWallet = "";
+    // Wallet System
     function openWalletModal() { document.getElementById("walletModal").style.display = "flex"; }
-    
     function connectWallet(name) {
-      activeWallet = "0x71C" + Math.floor(Math.random()*899999 + 100000) + "3b8";
-      document.getElementById("walletBtn").innerText = activeWallet.substring(0, 6) + "..." + activeWallet.substring(38);
+      let wallet = "0x71C" + Math.floor(Math.random()*899999 + 100000) + "3b8";
+      document.getElementById("walletBtn").innerText = wallet.substring(0, 4) + "..." + wallet.substring(38);
       document.getElementById("walletModal").style.display = "none";
-      document.getElementById("gameWalletInput").value = activeWallet;
+      document.getElementById("gameWalletInput").value = wallet;
     }
 
-    // Swap System
-    const ETH_RATE = 1000000; // 1 ETH = 1,000,000 GEN
+    // Swap Logic
+    const ETH_RATE = 1000000;
     let userEth = 1.5, userGen = 0, userStaked = 0;
 
     function calcSwap() {
@@ -1055,15 +1000,10 @@
       document.getElementById("genBal").innerText = userGen.toLocaleString();
       document.getElementById("ethPay").value = "";
       document.getElementById("genRec").value = "";
-      alert("Swap Executed Successfully!");
+      alert("Swap Executed!");
     }
 
-    // Staking System
-    function calcStake() {
-      const input = parseFloat(document.getElementById("stakeInput").value) || 0;
-      document.getElementById("yearlyReturn").innerText = (input * 30).toLocaleString() + " $GEN";
-    }
-
+    // Staking Logic
     function executeStake() {
       const input = parseFloat(document.getElementById("stakeInput").value);
       if (!input || input > userGen) { alert("Insufficient $GEN balance!"); return; }
@@ -1072,19 +1012,11 @@
       document.getElementById("genBal").innerText = userGen.toLocaleString();
       document.getElementById("stakedAmount").innerText = userStaked.toLocaleString();
       document.getElementById("stakeInput").value = "";
+      alert("Staked Successfully!");
     }
 
-    setInterval(() => {
-      if (userStaked > 0) {
-        let currentRewards = parseFloat(document.getElementById("liveRewards").innerText) || 0;
-        currentRewards += userStaked * 0.0001;
-        document.getElementById("liveRewards").innerText = currentRewards.toFixed(4) + " $GEN";
-      }
-    }, 1000);
-
     function claimRewards() {
-      alert("Rewards Claimed To Your Wallet!");
-      document.getElementById("liveRewards").innerText = "0.000 $GEN";
+      alert("Rewards Claimed!");
     }
 
     // FAQ Accordion
@@ -1092,12 +1024,12 @@
       el.classList.toggle("active");
     }
 
-    // Tokenomics Chart
+    // Chart.js
     const ctx = document.getElementById('tokenomicsChart').getContext('2d');
     new Chart(ctx, {
       type: 'doughnut',
       data: {
-        labels: ['Liquidity (40%)', 'Staking Rewards (25%)', 'Marketing (15%)', 'Treasury (10%)', 'Ecosystem (10%)'],
+        labels: ['Liquidity (40%)', 'Staking (25%)', 'Marketing (15%)', 'Treasury (10%)', 'Ecosystem (10%)'],
         datasets: [{
           data: [40, 25, 15, 10, 10],
           backgroundColor: ['#00f0ff', '#fbbf24', '#f43f5e', '#7c3aed', '#10b981'],
@@ -1105,67 +1037,82 @@
         }]
       },
       options: {
-        plugins: { legend: { labels: { color: '#f8fafc', font: { family: 'Orbitron' } } } }
+        responsive: true,
+        plugins: { legend: { position: 'bottom', labels: { color: '#f8fafc', font: { size: 11 } } } }
       }
     });
 
-    // Game Unlock System
+    // Game Lock & Logic
     function unlockGame() {
       const val = document.getElementById("gameWalletInput").value;
       if (val.length > 5) {
         document.getElementById("gameOverlay").style.display = "none";
-        startGame();
+        initGame();
       } else {
-        alert("Enter a valid EVM Address!");
+        alert("Enter Address First!");
       }
     }
 
-    // Game Core
     const gCanvas = document.getElementById("gameCanvas");
     const gCtx = gCanvas.getContext("2d");
-    let core = { x: 375, y: 200, hp: 100 }, enemies = [], gameScore = 0;
+    let core = { x: 0, y: 0, hp: 100 }, enemies = [], gameScore = 0;
 
-    gCanvas.addEventListener("mousemove", (e) => {
-      const rect = gCanvas.getBoundingClientRect();
-      const mx = e.clientX - rect.left;
-      const my = e.clientY - rect.top;
+    function resizeGameCanvas() {
+      gCanvas.width = gCanvas.parentElement.clientWidth;
+      gCanvas.height = gCanvas.parentElement.clientHeight;
+      core.x = gCanvas.width / 2;
+      core.y = gCanvas.height / 2;
+    }
+    window.addEventListener('resize', resizeGameCanvas);
 
-      // Laser destruction
+    function destroyEnemy(eX, eY) {
       for (let i = 0; i < enemies.length; i++) {
         let en = enemies[i];
-        let dist = Math.hypot(en.x - mx, en.y - my);
-        if (dist < 20) {
+        let dist = Math.hypot(en.x - eX, en.y - eY);
+        if (dist < 25) {
           enemies.splice(i, 1);
           gameScore += 50;
           break;
         }
       }
+    }
+
+    gCanvas.addEventListener("mousemove", (e) => {
+      const rect = gCanvas.getBoundingClientRect();
+      destroyEnemy(e.clientX - rect.left, e.clientY - rect.top);
     });
 
-    function startGame() {
+    gCanvas.addEventListener("touchmove", (e) => {
+      const rect = gCanvas.getBoundingClientRect();
+      const touch = e.touches[0];
+      destroyEnemy(touch.clientX - rect.left, touch.clientY - rect.top);
+    });
+
+    function initGame() {
+      resizeGameCanvas();
       setInterval(() => {
         let angle = Math.random() * Math.PI * 2;
         enemies.push({
-          x: core.x + Math.cos(angle) * 300,
-          y: core.y + Math.sin(angle) * 300,
-          speed: 1.5
+          x: core.x + Math.cos(angle) * (gCanvas.width / 2),
+          y: core.y + Math.sin(angle) * (gCanvas.height / 2),
+          speed: 1.2
         });
-      }, 800);
+      }, 700);
       gameLoop();
     }
 
     function gameLoop() {
       gCtx.clearRect(0, 0, gCanvas.width, gCanvas.height);
 
-      // Draw Core
+      // Core Draw
       gCtx.beginPath();
-      gCtx.arc(core.x, core.y, 25, 0, Math.PI * 2);
+      gCtx.arc(core.x, core.y, 20, 0, Math.PI * 2);
       gCtx.fillStyle = "#00f0ff";
-      gCtx.shadowBlur = 20;
+      gCtx.shadowBlur = 15;
       gCtx.shadowColor = "#00f0ff";
       gCtx.fill();
 
-      // Enemies
+      // Enemies Draw
       for (let i = 0; i < enemies.length; i++) {
         let en = enemies[i];
         let dx = core.x - en.x;
@@ -1176,11 +1123,11 @@
         en.y += Math.sin(angle) * en.speed;
 
         gCtx.beginPath();
-        gCtx.arc(en.x, en.y, 8, 0, Math.PI * 2);
+        gCtx.arc(en.x, en.y, 7, 0, Math.PI * 2);
         gCtx.fillStyle = "#f43f5e";
         gCtx.fill();
 
-        if (Math.hypot(core.x - en.x, core.y - en.y) < 30) {
+        if (Math.hypot(core.x - en.x, core.y - en.y) < 25) {
           core.hp -= 5;
           enemies.splice(i, 1);
           if (core.hp <= 0) {
@@ -1191,11 +1138,11 @@
         }
       }
 
-      // HUD
+      // HUD Text
       gCtx.fillStyle = "#fff";
-      gCtx.font = "14px Orbitron";
-      gCtx.fillText("CORE HP: " + core.hp + "%", 20, 30);
-      gCtx.fillText("SCORE: " + gameScore, 20, 50);
+      gCtx.font = "12px Orbitron";
+      gCtx.fillText("HP: " + core.hp + "%", 15, 25);
+      gCtx.fillText("SCORE: " + gameScore, 15, 45);
 
       requestAnimationFrame(gameLoop);
     }

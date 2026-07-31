@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Genesis AI ($GEN) | Robinhood Chain</title>
+  <style>
+    :root {
+      --bg: #030712;
+      --card-bg: rgba(17, 24, 39, 0.7);
+      --primary: #00f0ff;
+      --secondary: #7000ff;
+      --text: #f3f4f6;
+      --accent: #ff007a;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* Cyber Background Glow Effects */
+    .glow-1 {
+      position: fixed;
+      top: -10%;
+      left: -10%;
+      width: 400px;
+      height: 400px;
+      background: var(--primary);
+      filter: blur(150px);
+      opacity: 0.25;
+      z-index: -1;
+    }
+
+    .glow-2 {
+      position: fixed;
+      bottom: -10%;
+      right: -10%;
+      width: 400px;
+      height: 400px;
+      background: var(--secondary);
+      filter: blur(150px);
+      opacity: 0.25;
+      z-index: -1;
+    }
+
+    /* Navbar */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 8%;
+      background: rgba(3, 7, 18, 0.8);
+      backdrop-filter: blur(12px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid rgba(0, 240, 255, 0.1);
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: 800;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: 1px;
+    }
+
+    .x-btn {
+      padding: 10px 20px;
+      border-radius: 30px;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      box-shadow: 0 0 15px rgba(0, 240, 255, 0.4);
+      transition: 0.3s;
+    }
+
+    .x-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 25px rgba(112, 0, 255, 0.6);
+    }
+
+    /* Hero Section */
+    .hero {
+      text-align: center;
+      padding: 80px 20px 40px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .hero h1 {
+      font-size: 56px;
+      margin-bottom: 15px;
+      background: linear-gradient(180deg, #fff, var(--primary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero p {
+      font-size: 18px;
+      color: #9ca3af;
+      margin-bottom: 30px;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 6px 16px;
+      background: rgba(0, 240, 255, 0.1);
+      border: 1px solid var(--primary);
+      border-radius: 20px;
+      color: var(--primary);
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+
+    /* Info Cards */
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      max-width: 1000px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 16px;
+      padding: 25px;
+      backdrop-filter: blur(10px);
+      transition: 0.3s;
+    }
+
+    .card:hover {
+      border-color: var(--primary);
+      transform: translateY(-5px);
+    }
+
+    .card h3 {
+      color: var(--primary);
+      margin-bottom: 10px;
+    }
+
+    /* Game Section */
+    .game-container {
+      max-width: 800px;
+      margin: 60px auto;
+      padding: 20px;
+      text-align: center;
+      background: var(--card-bg);
+      border-radius: 20px;
+      border: 1px solid rgba(112, 0, 255, 0.3);
+      box-shadow: 0 0 30px rgba(112, 0, 255, 0.2);
+    }
+
+    .game-container h2 {
+      font-size: 28px;
+      margin-bottom: 10px;
+      color: var(--primary);
+    }
+
+    #gameCanvas {
+      background: #090d16;
+      border-radius: 12px;
+      border: 2px solid rgba(0, 240, 255, 0.2);
+      width: 100%;
+      max-width: 700px;
+      height: 400px;
+      margin-top: 15px;
+      cursor: pointer;
+    }
+
+    .game-controls {
+      margin-top: 15px;
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+    }
+
+    .start-btn {
+      padding: 10px 25px;
+      background: var(--accent);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 0 10px rgba(255, 0, 122, 0.5);
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 30px;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      color: #6b7280;
+      margin-top: 50px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="glow-1"></div>
+  <div class="glow-2"></div>
+
+  <!-- Header -->
+  <header>
+    <div class="logo">Genesis AI</div>
+    <a href="https://x.com/GenesisAIRH" target="_blank" class="x-btn">Follow on X</a>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <span class="badge">Powered by Robinhood Chain</span>
+    <h1>The Next Gen AI Protocol</h1>
+    <p>Genesis AI ($GEN) is bringing decentralized machine intelligence to the Robinhood Ecosystem. Fast, smart, and community-driven.</p>
+  </section>
+
+  <!-- Token Specs -->
+  <div class="info-grid">
+    <div class="card">
+      <h3>Project Name</h3>
+      <p>Genesis AI</p>
+    </div>
+    <div class="card">
+      <h3>Ticker Symbol</h3>
+      <p>$GEN</p>
+    </div>
+    <div class="card">
+      <h3>Network</h3>
+      <p>Robinhood Chain</p>
+    </div>
+  </div>
+
+  <!-- Mini Game Section -->
+  <section class="game-container">
+    <h2>🎮 Genesis $GEN Catcher</h2>
+    <p>Use your mouse/touch to move the basket and catch falling $GEN coins on Robinhood Chain!</p>
+    
+    <canvas id="gameCanvas" width="700" height="400"></canvas>
+    
+    <div class="game-controls">
+      <button class="start-btn" onclick="startGame()">Start / Restart Game</button>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2026 Genesis AI ($GEN). All rights reserved.</p>
+  </footer>
+
+  <!-- Game Script -->
+  <script>
+    const canvas = document.getElementById("gameCanvas");
+    const ctx = canvas.getContext("2d");
+
+    let basket = { x: 300, y: 350, width: 80, height: 15 };
+    let coins = [];
+    let score = 0;
+    let gameOver = false;
+    let gameActive = false;
+
+    // Track mouse movement inside canvas
+    canvas.addEventListener("mousemove", (e) => {
+      const rect = canvas.getBoundingClientRect();
+      basket.x = e.clientX - rect.left - basket.width / 2;
+    });
+
+    // Touch support for Mobile
+    canvas.addEventListener("touchmove", (e) => {
+      const rect = canvas.getBoundingClientRect();
+      basket.x = e.touches[0].clientX - rect.left - basket.width / 2;
+    });
+
+    function spawnCoin() {
+      if (!gameActive) return;
+      const x = Math.random() * (canvas.width - 20);
+      coins.push({ x: x, y: 0, speed: 2.5 + Math.random() * 2 });
+    }
+
+    function update() {
+      if (!gameActive || gameOver) return;
+
+      // Clear Canvas
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Draw Basket
+      ctx.fillStyle = "#00f0ff";
+      ctx.shadowBlur = 15;
+      ctx.shadowColor = "#00f0ff";
+      ctx.fillRect(basket.x, basket.y, basket.width, basket.height);
+
+      // Move & Draw Coins
+      for (let i = 0; i < coins.length; i++) {
+        let c = coins[i];
+        c.y += c.speed;
+
+        // Draw Coin
+        ctx.beginPath();
+        ctx.arc(c.x, c.y, 12, 0, Math.PI * 2);
+        ctx.fillStyle = "#ff007a";
+        ctx.shadowColor = "#ff007a";
+        ctx.fill();
+
+        ctx.fillStyle = "#fff";
+        ctx.font = "bold 10px Arial";
+        ctx.fillText("$GEN", c.x - 12, c.y + 3);
+
+        // Check Collision with Basket
+        if (
+          c.y + 12 >= basket.y &&
+          c.x >= basket.x &&
+          c.x <= basket.x + basket.width
+        ) {
+          score += 10;
+          coins.splice(i, 1);
+          i--;
+          continue;
+        }
+
+        // Missed Coin
+        if (c.y > canvas.height) {
+          coins.splice(i, 1);
+          i--;
+        }
+      }
+
+      // Draw Score
+      ctx.shadowBlur = 0;
+      ctx.fillStyle = "#fff";
+      ctx.font = "16px Arial";
+      ctx.fillText("Score: " + score, 20, 30);
+
+      requestAnimationFrame(update);
+    }
+
+    function startGame() {
+      score = 0;
+      coins = [];
+      gameOver = false;
+      gameActive = true;
+      update();
+    }
+
+    // Interval for spawning coins
+    setInterval(spawnCoin, 1000);
+
+    // Initial Screen Message
+    ctx.fillStyle = "#00f0ff";
+    ctx.font = "20px Arial";
+    ctx.textAlign = "center";
+    ctx.fillText("Click 'Start Game' to Play!", canvas.width / 2, canvas.height / 2);
+  </script>
+</body>
+</html>

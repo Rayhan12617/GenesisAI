@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Genesis AI ($GEN) | Robinhood Chain</title>
+  <title>Genesis AI ($GEN) | AI Protocol on Robinhood Chain</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@500;600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
@@ -34,7 +34,7 @@
       line-height: 1.6;
     }
 
-    /* Ambient Cyber Backgrounds */
+    /* Cyber BG Glows */
     .glow-1 {
       position: fixed;
       top: -10%;
@@ -57,7 +57,7 @@
       z-index: -1;
     }
 
-    /* Header Navigation */
+    /* Navigation */
     header {
       display: flex;
       justify-content: space-between;
@@ -97,41 +97,47 @@
       -webkit-text-fill-color: transparent;
     }
 
-    .x-btn {
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .btn-action {
       display: flex;
       align-items: center;
       gap: 8px;
-      padding: 10px 22px;
+      padding: 10px 20px;
       border-radius: 30px;
       background: linear-gradient(135deg, var(--primary), var(--secondary));
       color: #fff;
       text-decoration: none;
       font-family: 'Rajdhani', sans-serif;
       font-weight: 700;
-      font-size: 16px;
-      letter-spacing: 0.5px;
-      box-shadow: 0 0 20px rgba(0, 240, 255, 0.3);
-      transition: all 0.3s ease;
+      font-size: 15px;
+      cursor: pointer;
       border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 0 15px rgba(0, 240, 255, 0.3);
+      transition: all 0.3s;
     }
 
-    .x-btn:hover {
+    .btn-action:hover {
       transform: translateY(-2px);
-      box-shadow: 0 0 30px rgba(139, 92, 246, 0.6);
+      box-shadow: 0 0 25px rgba(139, 92, 246, 0.6);
     }
 
-    /* Cover / Hero Banner */
+    /* Cover Banner */
     .hero-banner {
       width: 100%;
       max-width: 1200px;
-      margin: 30px auto 0;
+      margin: 20px auto 0;
       padding: 0 20px;
     }
 
     .banner-wrapper {
       position: relative;
       width: 100%;
-      height: 320px;
+      height: 280px;
       border-radius: 24px;
       overflow: hidden;
       border: 1px solid var(--border);
@@ -142,132 +148,162 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      filter: brightness(0.85) contrast(1.1);
     }
 
     .banner-overlay {
       position: absolute;
       inset: 0;
-      background: linear-gradient(0deg, rgba(3, 7, 18, 0.95) 0%, rgba(3, 7, 18, 0.3) 60%, rgba(3, 7, 18, 0.1) 100%);
+      background: linear-gradient(0deg, rgba(3, 7, 18, 0.95) 0%, rgba(3, 7, 18, 0.2) 100%);
     }
 
-    /* Hero Content */
+    /* Main Sections Layout */
     .hero {
       text-align: center;
-      padding: 40px 20px 20px;
+      padding: 30px 20px 20px;
       max-width: 900px;
       margin: 0 auto;
     }
 
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 20px;
-      background: rgba(0, 240, 255, 0.08);
-      border: 1px solid var(--primary);
-      border-radius: 30px;
-      color: var(--primary);
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 15px;
-      font-weight: 700;
-      letter-spacing: 1px;
-      margin-bottom: 20px;
-      text-transform: uppercase;
-    }
-
-    .badge::before {
-      content: '';
-      width: 8px;
-      height: 8px;
-      background-color: var(--primary);
-      border-radius: 50%;
-      box-shadow: 0 0 10px var(--primary);
-    }
-
     .hero h1 {
       font-family: 'Orbitron', sans-serif;
-      font-size: 48px;
+      font-size: 42px;
       font-weight: 900;
       margin-bottom: 15px;
-      letter-spacing: 1px;
-      line-height: 1.2;
       background: linear-gradient(180deg, #ffffff 30%, var(--primary) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
 
     .hero p {
-      font-size: 18px;
+      font-size: 16px;
       color: var(--text-dim);
-      margin-bottom: 30px;
-      max-width: 750px;
-      margin-left: auto;
-      margin-right: auto;
     }
 
-    /* Token Stats Grid */
-    .info-grid {
+    /* DEX Swap & Staking Grid */
+    .dex-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 24px;
+      grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+      gap: 30px;
       max-width: 1100px;
-      margin: 30px auto 60px;
+      margin: 40px auto;
       padding: 0 20px;
     }
 
-    .card {
+    .dex-card {
       background: var(--card-bg);
+      border-radius: 24px;
+      border: 1px solid var(--border);
+      padding: 30px;
+      backdrop-filter: blur(16px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+    }
+
+    .dex-card h2 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 22px;
+      color: #fff;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* Swap Inputs */
+    .swap-box {
+      background: rgba(3, 7, 18, 0.7);
       border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 20px;
-      padding: 28px;
-      backdrop-filter: blur(12px);
-      transition: all 0.3s ease;
-      position: relative;
-      overflow: hidden;
+      border-radius: 16px;
+      padding: 16px;
+      margin-bottom: 12px;
     }
 
-    .card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 3px;
-      background: linear-gradient(90deg, var(--primary), var(--secondary));
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-
-    .card:hover {
-      border-color: rgba(0, 240, 255, 0.4);
-      transform: translateY(-6px);
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
-    }
-
-    .card:hover::before {
-      opacity: 1;
-    }
-
-    .card h3 {
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 14px;
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
+    .swap-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
       color: var(--text-dim);
       margin-bottom: 8px;
     }
 
-    .card .value {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 26px;
+    .swap-input-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .swap-input {
+      background: transparent;
+      border: none;
+      color: #fff;
+      font-size: 22px;
       font-weight: 700;
+      width: 60%;
+      outline: none;
+      font-family: 'Orbitron', sans-serif;
+    }
+
+    .token-badge {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    .token-icon {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+    }
+
+    .swap-arrow {
+      text-align: center;
+      margin: -6px 0;
+      font-size: 18px;
       color: var(--primary);
     }
 
-    /* Game Container */
+    .btn-swap {
+      width: 100%;
+      padding: 16px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      border: none;
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 10px;
+      box-shadow: 0 0 20px rgba(0, 240, 255, 0.3);
+      transition: all 0.3s;
+    }
+
+    .btn-swap:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 30px rgba(139, 92, 246, 0.5);
+    }
+
+    /* Staking Badge */
+    .apy-badge {
+      background: linear-gradient(90deg, rgba(251, 191, 36, 0.2), rgba(236, 72, 153, 0.2));
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      padding: 8px 16px;
+      border-radius: 12px;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 18px;
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    /* Game Section */
     .game-section {
-      max-width: 900px;
+      max-width: 1100px;
       margin: 40px auto 80px;
       padding: 0 20px;
     }
@@ -276,187 +312,89 @@
       background: var(--card-bg);
       border-radius: 24px;
       border: 1px solid var(--border);
-      padding: 35px;
+      padding: 30px;
       backdrop-filter: blur(16px);
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
       text-align: center;
     }
 
-    .game-header h2 {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 32px;
-      color: #fff;
-      margin-bottom: 10px;
-    }
-
-    .game-header p {
-      color: var(--text-dim);
-      font-size: 16px;
-      margin-bottom: 25px;
-    }
-
-    /* Address Gate / Wallet Connect */
-    .wallet-gate {
-      background: rgba(3, 7, 18, 0.7);
-      border: 1px solid rgba(0, 240, 255, 0.25);
-      border-radius: 16px;
-      padding: 30px;
-      max-width: 550px;
-      margin: 0 auto 25px;
-    }
-
-    .wallet-gate h4 {
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 20px;
-      color: var(--primary);
-      margin-bottom: 12px;
-      letter-spacing: 1px;
-    }
-
-    .input-group {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      margin-top: 15px;
-    }
-
-    .wallet-input {
-      width: 100%;
-      padding: 14px 18px;
-      background: rgba(15, 23, 42, 0.9);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      border-radius: 10px;
-      color: #fff;
-      font-size: 14px;
-      font-family: monospace;
-      outline: none;
-      transition: all 0.3s;
-    }
-
-    .wallet-input:focus {
-      border-color: var(--primary);
-      box-shadow: 0 0 15px rgba(0, 240, 255, 0.3);
-    }
-
-    .btn-connect {
-      padding: 14px 28px;
-      background: linear-gradient(135deg, var(--primary), var(--secondary));
-      color: white;
-      border: none;
-      border-radius: 10px;
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 18px;
-      font-weight: 700;
-      cursor: pointer;
-      letter-spacing: 1px;
-      transition: all 0.3s;
-      box-shadow: 0 0 15px rgba(0, 240, 255, 0.3);
-    }
-
-    .btn-connect:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 0 25px rgba(139, 92, 246, 0.5);
-    }
-
-    .connected-status {
-      display: none;
-      align-items: center;
-      justify-content: space-between;
-      background: rgba(0, 240, 255, 0.1);
-      border: 1px solid var(--primary);
-      padding: 12px 20px;
-      border-radius: 12px;
-      margin-bottom: 20px;
-    }
-
-    .connected-status span {
-      font-family: monospace;
-      color: var(--primary);
-      font-weight: bold;
-    }
-
-    .btn-disconnect {
-      background: transparent;
-      border: 1px solid var(--accent);
-      color: var(--accent);
-      padding: 4px 12px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 12px;
-    }
-
-    /* Game Canvas Frame */
     .canvas-wrapper {
       position: relative;
       width: 100%;
       max-width: 750px;
-      margin: 0 auto;
+      margin: 20px auto 0;
       border-radius: 16px;
       overflow: hidden;
       border: 2px solid rgba(0, 240, 255, 0.3);
-      box-shadow: 0 0 30px rgba(0, 240, 255, 0.15);
       background: #050a14;
     }
 
     #gameCanvas {
       width: 100%;
-      height: 420px;
+      height: 380px;
       display: block;
       cursor: crosshair;
     }
 
-    /* Game Live Stats */
-    .game-stats {
-      display: flex;
-      justify-content: space-around;
-      margin-top: 20px;
-      padding: 15px;
-      background: rgba(3, 7, 18, 0.5);
-      border-radius: 12px;
+    /* Modal Wallet */
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(10px);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
     }
 
-    .stat-item {
+    .modal-content {
+      background: #0f172a;
+      border: 1px solid var(--primary);
+      border-radius: 20px;
+      padding: 30px;
+      max-width: 420px;
+      width: 90%;
       text-align: center;
+      position: relative;
     }
 
-    .stat-item span {
-      display: block;
-      font-size: 12px;
+    .modal-close {
+      position: absolute;
+      top: 15px;
+      right: 20px;
       color: var(--text-dim);
-      text-transform: uppercase;
-      font-family: 'Rajdhani', sans-serif;
+      font-size: 24px;
+      cursor: pointer;
     }
 
-    .stat-item strong {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 20px;
-      color: var(--gold);
+    .wallet-option {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 20px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      margin-top: 12px;
+      cursor: pointer;
+      transition: all 0.3s;
     }
 
-    /* Footer */
+    .wallet-option:hover {
+      border-color: var(--primary);
+      background: rgba(0, 240, 255, 0.1);
+    }
+
     footer {
       text-align: center;
-      padding: 40px 20px;
+      padding: 30px;
       border-top: 1px solid rgba(255, 255, 255, 0.08);
       color: var(--text-dim);
-      font-size: 14px;
-    }
-
-    footer a {
-      color: var(--primary);
-      text-decoration: none;
     }
 
     @media (max-width: 768px) {
-      .hero h1 {
-        font-size: 32px;
-      }
-      .banner-wrapper {
-        height: 200px;
-      }
-      header {
-        padding: 14px 4%;
-      }
+      .hero h1 { font-size: 32px; }
+      .dex-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -465,358 +403,304 @@
   <div class="glow-1"></div>
   <div class="glow-2"></div>
 
-  <!-- Header Navigation -->
+  <!-- Navigation -->
   <header>
     <a href="#" class="brand">
       <img src="https://i.imgur.com/U27v8N6.jpeg" alt="Genesis AI Logo" class="logo-img">
       <span class="brand-text">GENESIS AI</span>
     </a>
-    <div class="nav-links">
-      <a href="https://x.com/GenesisAIRH" target="_blank" class="x-btn">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-        </svg>
-        Follow on X
-      </a>
+    <div class="nav-right">
+      <a href="https://x.com/GenesisAIRH" target="_blank" class="btn-action" style="background: rgba(255,255,255,0.08);">X / Twitter</a>
+      <button class="btn-action" id="walletBtn" onclick="openWalletModal()">Connect Wallet</button>
     </div>
   </header>
 
-  <!-- Cover Banner Image -->
+  <!-- Banner -->
   <div class="hero-banner">
     <div class="banner-wrapper">
-      <img src="https://i.imgur.com/nqgj1Wq.jpeg" alt="Genesis AI Cover" class="banner-img">
+      <img src="https://i.imgur.com/nqgj1Wq.jpeg" alt="Genesis AI Banner" class="banner-img">
       <div class="banner-overlay"></div>
     </div>
   </div>
 
-  <!-- Hero Content -->
+  <!-- Hero Section -->
   <section class="hero">
-    <div class="badge">Robinhood Chain Ecosystem</div>
-    <h1>Empowering AI Intelligence on Web3</h1>
-    <p>Genesis AI ($GEN) bridges cutting-edge artificial neural architecture with decentralized execution on Robinhood Chain. Fast, zero-friction, and built for next-generation Web3 gaming.</p>
+    <h1>Genesis AI Exchange & Staking</h1>
+    <p>Trade Robinhood Chain ETH to $GEN instantly or stake your tokens to earn massive compound yield.</p>
   </section>
 
-  <!-- Key Info Cards -->
-  <div class="info-grid">
-    <div class="card">
-      <h3>Project Name</h3>
-      <div class="value">Genesis AI</div>
+  <!-- DEX Swap & Staking Grid -->
+  <div class="dex-grid">
+    
+    <!-- SWAP WIDGET -->
+    <div class="dex-card">
+      <h2>🔄 Instant Swap</h2>
+      
+      <!-- From Token -->
+      <div class="swap-box">
+        <div class="swap-label">
+          <span>YOU PAY</span>
+          <span>Balance: <strong id="ethBal">0.00</strong> ETH</span>
+        </div>
+        <div class="swap-input-row">
+          <input type="number" id="ethInput" class="swap-input" placeholder="0.0" oninput="calculateSwap()">
+          <div class="token-badge">
+            <span style="background:#627eea; width:18px; height:18px; border-radius:50%; display:inline-block; text-align:center; font-size:11px; font-weight:bold; color:#fff;">Ξ</span>
+            RH-ETH
+          </div>
+        </div>
+      </div>
+
+      <div class="swap-arrow">⬇</div>
+
+      <!-- To Token -->
+      <div class="swap-box">
+        <div class="swap-label">
+          <span>YOU RECEIVE</span>
+          <span>Balance: <strong id="genBal">0.00</strong> GEN</span>
+        </div>
+        <div class="swap-input-row">
+          <input type="number" id="genInput" class="swap-input" placeholder="0.0" readonly>
+          <div class="token-badge">
+            <img src="https://i.imgur.com/U27v8N6.jpeg" class="token-icon">
+            $GEN
+          </div>
+        </div>
+      </div>
+
+      <button class="btn-swap" onclick="executeSwap()">Swap Tokens</button>
     </div>
-    <div class="card">
-      <h3>Ticker Symbol</h3>
-      <div class="value">$GEN</div>
+
+    <!-- STAKING PORTAL -->
+    <div class="dex-card">
+      <h2>🔥 Staking Vault</h2>
+      
+      <div class="apy-badge">
+        🚀 EARN 3,000% APY
+      </div>
+
+      <div class="swap-box">
+        <div class="swap-label">
+          <span>AMOUNT TO STAKE</span>
+          <span>Staked: <strong id="stakedBal">0.00</strong> GEN</span>
+        </div>
+        <div class="swap-input-row">
+          <input type="number" id="stakeInput" class="swap-input" placeholder="0.0" oninput="calculateYield()">
+          <div class="token-badge">
+            <img src="https://i.imgur.com/U27v8N6.jpeg" class="token-icon">
+            $GEN
+          </div>
+        </div>
+      </div>
+
+      <div style="background: rgba(255,255,255,0.03); padding: 12px; border-radius: 12px; font-size: 13px; color: var(--text-dim); margin-bottom: 15px;">
+        <div style="display:flex; justify-shadow:space-between; justify-content:space-between; margin-bottom: 4px;">
+          <span>Estimated Yearly Returns:</span>
+          <strong id="estReward" style="color:var(--gold);">0 $GEN</strong>
+        </div>
+        <div style="display:flex; justify-content:space-between;">
+          <span>Lock Duration:</span>
+          <strong style="color:var(--primary);">Flexible / No Lock</strong>
+        </div>
+      </div>
+
+      <button class="btn-swap" style="background: linear-gradient(135deg, var(--gold), var(--accent));" onclick="executeStake()">Stake $GEN Tokens</button>
     </div>
-    <div class="card">
-      <h3>Network Chain</h3>
-      <div class="value">Robinhood Chain</div>
+
+  </div>
+
+  <!-- Mini Game -->
+  <section class="game-section">
+    <div class="game-card">
+      <h2>🎮 Genesis Coin Defender (Play & Earn)</h2>
+      <p style="color: var(--text-dim); margin-bottom: 15px;">Connect address & collect falling $GEN tokens. Watch out for red spikes!</p>
+
+      <div class="canvas-wrapper">
+        <canvas id="gameCanvas" width="750" height="380"></canvas>
+      </div>
+    </div>
+  </section>
+
+  <!-- Modal Wallet Connect -->
+  <div class="modal" id="walletModal">
+    <div class="modal-content">
+      <span class="modal-close" onclick="closeWalletModal()">&times;</span>
+      <h3 style="font-family:'Orbitron'; margin-bottom:15px; color:var(--primary);">Select Wallet</h3>
+      <p style="font-size:13px; color:var(--text-dim); margin-bottom:20px;">Connect your Web3 EVM wallet on Robinhood Chain</p>
+
+      <div class="wallet-option" onclick="connectWallet('MetaMask')">
+        <span>MetaMask / Rabby</span>
+        <span>🦊</span>
+      </div>
+      <div class="wallet-option" onclick="connectWallet('Robinhood Wallet')">
+        <span>Robinhood Web3 App</span>
+        <span>🏹</span>
+      </div>
+      <div class="wallet-option" onclick="connectWallet('Manual Address')">
+        <span>Paste EVM Address</span>
+        <span>🔑</span>
+      </div>
     </div>
   </div>
 
-  <!-- Mini Game Section -->
-  <section class="game-section">
-    <div class="game-card">
-      <div class="game-header">
-        <h2>⚡ Genesis Coin Defender</h2>
-        <p>Connect your Robinhood Wallet address to catch falling $GEN coins and dodge red security spikes!</p>
-      </div>
-
-      <!-- Wallet Gate / Address Input -->
-      <div id="walletGate" class="wallet-gate">
-        <h4>Connect Robinhood Address</h4>
-        <p style="font-size: 13px; color: var(--text-dim);">Enter your Robinhood Chain EVM address (0x...) to unlock gameplay & score tracking.</p>
-        <div class="input-group">
-          <input type="text" id="walletInput" class="wallet-input" placeholder="Enter Address (e.g. 0x71C...3b8)" />
-          <button class="btn-connect" onclick="connectWallet()">Connect & Play</button>
-        </div>
-      </div>
-
-      <!-- Connected State Banner -->
-      <div id="connectedBanner" class="connected-status">
-        <div>
-          <span style="font-size: 12px; color: var(--text-dim); display: block;">CONNECTED ADDRESS:</span>
-          <span id="displayAddress">0x...</span>
-        </div>
-        <button class="btn-disconnect" onclick="disconnectWallet()">Disconnect</button>
-      </div>
-
-      <!-- Game Canvas -->
-      <div class="canvas-wrapper">
-        <canvas id="gameCanvas" width="750" height="420"></canvas>
-      </div>
-
-      <!-- Game Live Stats -->
-      <div class="game-stats">
-        <div class="stat-item">
-          <span>Current Score</span>
-          <strong id="scoreVal">0</strong>
-        </div>
-        <div class="stat-item">
-          <span>High Score</span>
-          <strong id="highScoreVal">0</strong>
-        </div>
-        <div class="stat-item">
-          <span>Status</span>
-          <strong id="gameStatus" style="color: var(--primary);">LOCKED</strong>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Footer -->
   <footer>
-    <p>© 2026 Genesis AI ($GEN). Built exclusively for <a href="https://x.com/GenesisAIRH" target="_blank">Robinhood Chain Community</a>.</p>
+    <p>© 2026 Genesis AI ($GEN). Built for <a href="https://x.com/GenesisAIRH" target="_blank" style="color:var(--primary);">Robinhood Chain Community</a>.</p>
   </footer>
 
-  <!-- Interactive Game Script -->
+  <!-- Scripts -->
   <script>
-    const canvas = document.getElementById("gameCanvas");
-    const ctx = canvas.getContext("2d");
+    let userWallet = "";
+    let ethBalance = 2.5;
+    let genBalance = 50000;
+    let stakedBalance = 0;
+    const ETH_TO_GEN_RATE = 1000000; // 1 ETH = 1,000,000 $GEN
 
-    let playerAddress = "";
-    let isConnected = false;
+    // Wallet Modal
+    function openWalletModal() {
+      document.getElementById("walletModal").style.display = "flex";
+    }
 
-    // Game Variables
-    let basket = { x: 335, y: 370, width: 90, height: 16, speed: 8 };
-    let coins = [];
-    let hazards = [];
-    let score = 0;
-    let highScore = 0;
-    let gameActive = false;
-    let animationFrameId;
+    function closeWalletModal() {
+      document.getElementById("walletModal").style.display = "none";
+    }
 
-    // Wallet Gate Handler
-    function connectWallet() {
-      const input = document.getElementById("walletInput").value.trim();
-      if (!input || input.length < 10) {
-        alert("Please enter a valid Robinhood Chain address (e.g., 0x...)");
+    function connectWallet(type) {
+      let addr = "";
+      if (type === 'Manual Address') {
+        addr = prompt("Enter Robinhood Chain EVM Address (0x...):");
+      } else {
+        addr = "0x71C" + Math.floor(Math.random()*899999 + 100000) + "3b8";
+      }
+
+      if (addr && addr.length > 8) {
+        userWallet = addr;
+        document.getElementById("walletBtn").innerText = userWallet.substring(0, 6) + "..." + userWallet.substring(userWallet.length - 4);
+        document.getElementById("walletBtn").style.background = "#10b981";
+        document.getElementById("ethBal").innerText = ethBalance.toFixed(2);
+        document.getElementById("genBal").innerText = genBalance.toLocaleString();
+        closeWalletModal();
+        initGame();
+      }
+    }
+
+    // Swap Math
+    function calculateSwap() {
+      const val = parseFloat(document.getElementById("ethInput").value) || 0;
+      document.getElementById("genInput").value = (val * ETH_TO_GEN_RATE).toLocaleString();
+    }
+
+    function executeSwap() {
+      if (!userWallet) { openWalletModal(); return; }
+      const input = parseFloat(document.getElementById("ethInput").value);
+      if (!input || input > ethBalance) {
+        alert("Insufficient Robinhood ETH balance!");
         return;
       }
-      
-      playerAddress = input;
-      isConnected = true;
 
-      // Update UI
-      document.getElementById("walletGate").style.display = "none";
-      document.getElementById("connectedBanner").style.display = "flex";
-      document.getElementById("displayAddress").innerText = playerAddress.substring(0, 6) + "..." + playerAddress.substring(playerAddress.length - 4);
-      document.getElementById("gameStatus").innerText = "READY";
-      document.getElementById("gameStatus").style.color = "#4ade80";
+      ethBalance -= input;
+      const acquiredGen = input * ETH_TO_GEN_RATE;
+      genBalance += acquiredGen;
 
-      // Initialize Game Canvas state
-      initGame();
+      document.getElementById("ethBal").innerText = ethBalance.toFixed(2);
+      document.getElementById("genBal").innerText = genBalance.toLocaleString();
+      document.getElementById("ethInput").value = "";
+      document.getElementById("genInput").value = "";
+      alert(`Success! Swapped ${input} ETH for ${acquiredGen.toLocaleString()} $GEN on Robinhood Chain!`);
     }
 
-    function disconnectWallet() {
-      isConnected = false;
-      gameActive = false;
-      playerAddress = "";
-      cancelAnimationFrame(animationFrameId);
-
-      document.getElementById("walletGate").style.display = "block";
-      document.getElementById("connectedBanner").style.display = "none";
-      document.getElementById("gameStatus").innerText = "LOCKED";
-      document.getElementById("gameStatus").style.color = "var(--primary)";
-      document.getElementById("scoreVal").innerText = "0";
-
-      drawLockedScreen();
+    // Staking Math
+    function calculateYield() {
+      const val = parseFloat(document.getElementById("stakeInput").value) || 0;
+      const yearly = val * 30; // 3000% APY
+      document.getElementById("estReward").innerText = yearly.toLocaleString() + " $GEN";
     }
 
-    // Canvas Control
+    function executeStake() {
+      if (!userWallet) { openWalletModal(); return; }
+      const input = parseFloat(document.getElementById("stakeInput").value);
+      if (!input || input > genBalance) {
+        alert("Insufficient $GEN balance to stake!");
+        return;
+      }
+
+      genBalance -= input;
+      stakedBalance += input;
+
+      document.getElementById("genBal").innerText = genBalance.toLocaleString();
+      document.getElementById("stakedBal").innerText = stakedBalance.toLocaleString();
+      document.getElementById("stakeInput").value = "";
+      alert(`Successfully staked ${input.toLocaleString()} $GEN at 3,000% APY!`);
+    }
+
+    // Mini Game System
+    const canvas = document.getElementById("gameCanvas");
+    const ctx = canvas.getContext("2d");
+    let basket = { x: 335, y: 330, width: 90, height: 16 };
+    let coins = [], hazards = [], score = 0, gameActive = false;
+
     canvas.addEventListener("mousemove", (e) => {
-      if (!gameActive) return;
       const rect = canvas.getBoundingClientRect();
       basket.x = e.clientX - rect.left - basket.width / 2;
     });
 
-    canvas.addEventListener("touchmove", (e) => {
-      if (!gameActive) return;
-      const rect = canvas.getBoundingClientRect();
-      basket.x = e.touches[0].clientX - rect.left - basket.width / 2;
-    });
-
-    // Start / Restart Game on Click
-    canvas.addEventListener("click", () => {
-      if (isConnected && !gameActive) {
-        startGame();
-      }
-    });
-
-    function drawLockedScreen() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.fillStyle = "rgba(0, 240, 255, 0.05)";
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-      ctx.fillStyle = "#00f0ff";
-      ctx.font = "bold 20px 'Orbitron', sans-serif";
-      ctx.textAlign = "center";
-      ctx.fillText("🔒 CONNECT ROBINHOOD ADDRESS TO UNLOCK GAME", canvas.width / 2, canvas.height / 2);
-    }
-
     function initGame() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.fillStyle = "#fff";
-      ctx.font = "bold 22px 'Orbitron', sans-serif";
-      ctx.textAlign = "center";
-      ctx.fillText("CLICK HERE TO START PLAYING", canvas.width / 2, canvas.height / 2 - 10);
-      ctx.fillStyle = "#94a3b8";
-      ctx.font = "14px 'Inter', sans-serif";
-      ctx.fillText("Catch $GEN Tokens, Avoid Red Spikes!", canvas.width / 2, canvas.height / 2 + 25);
-    }
-
-    function spawnItems() {
-      if (!gameActive) return;
-
-      // Spawn $GEN Coins
-      if (Math.random() < 0.04) {
-        coins.push({
-          x: Math.random() * (canvas.width - 30) + 15,
-          y: -20,
-          radius: 14,
-          speed: 2.5 + Math.random() * 2.5
-        });
-      }
-
-      // Spawn Red Hazard Spikes
-      if (Math.random() < 0.018) {
-        hazards.push({
-          x: Math.random() * (canvas.width - 30) + 15,
-          y: -20,
-          size: 16,
-          speed: 3 + Math.random() * 3
-        });
-      }
-    }
-
-    function startGame() {
+      gameActive = true;
       score = 0;
       coins = [];
       hazards = [];
-      gameActive = true;
-      document.getElementById("scoreVal").innerText = "0";
-      document.getElementById("gameStatus").innerText = "PLAYING";
-      document.getElementById("gameStatus").style.color = "#fbbf24";
-      
-      cancelAnimationFrame(animationFrameId);
       gameLoop();
-    }
-
-    function gameOver() {
-      gameActive = false;
-      document.getElementById("gameStatus").innerText = "GAME OVER";
-      document.getElementById("gameStatus").style.color = "#ef4444";
-
-      if (score > highScore) {
-        highScore = score;
-        document.getElementById("highScoreVal").innerText = highScore;
-      }
-
-      ctx.fillStyle = "rgba(3, 7, 18, 0.85)";
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-      ctx.fillStyle = "#ef4444";
-      ctx.font = "bold 32px 'Orbitron', sans-serif";
-      ctx.textAlign = "center";
-      ctx.fillText("SYSTEM OVERLOAD!", canvas.width / 2, canvas.height / 2 - 30);
-
-      ctx.fillStyle = "#fff";
-      ctx.font = "18px 'Inter', sans-serif";
-      ctx.fillText("Final Score: " + score + " $GEN", canvas.width / 2, canvas.height / 2 + 10);
-
-      ctx.fillStyle = "#00f0ff";
-      ctx.font = "15px 'Rajdhani', sans-serif";
-      ctx.fillText("Click anywhere to retry", canvas.width / 2, canvas.height / 2 + 50);
     }
 
     function gameLoop() {
       if (!gameActive) return;
-
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      if (basket.x < 0) basket.x = 0;
-      if (basket.x + basket.width > canvas.width) basket.x = canvas.width - basket.width;
-
-      // Render Catching Platform
+      // Basket
       ctx.fillStyle = "#00f0ff";
-      ctx.shadowBlur = 15;
+      ctx.shadowBlur = 10;
       ctx.shadowColor = "#00f0ff";
-      ctx.beginPath();
-      ctx.roundRect(basket.x, basket.y, basket.width, basket.height, 8);
-      ctx.fill();
+      ctx.fillRect(basket.x, basket.y, basket.width, basket.height);
 
-      spawnItems();
+      // Coins
+      if (Math.random() < 0.04) coins.push({ x: Math.random() * (canvas.width - 20) + 10, y: 0, speed: 3 });
+      if (Math.random() < 0.015) hazards.push({ x: Math.random() * (canvas.width - 20) + 10, y: 0, speed: 3.5 });
 
-      // Update & Draw Coins
       for (let i = 0; i < coins.length; i++) {
         let c = coins[i];
         c.y += c.speed;
-
         ctx.beginPath();
-        ctx.arc(c.x, c.y, c.radius, 0, Math.PI * 2);
+        ctx.arc(c.x, c.y, 12, 0, Math.PI * 2);
         ctx.fillStyle = "#fbbf24";
-        ctx.shadowColor = "#fbbf24";
-        ctx.shadowBlur = 10;
         ctx.fill();
 
-        ctx.fillStyle = "#000";
-        ctx.font = "bold 10px 'Orbitron', sans-serif";
-        ctx.textAlign = "center";
-        ctx.fillText("GEN", c.x, c.y + 3);
-
-        if (
-          c.y + c.radius >= basket.y &&
-          c.x >= basket.x &&
-          c.x <= basket.x + basket.width
-        ) {
+        if (c.y >= basket.y && c.x >= basket.x && c.x <= basket.x + basket.width) {
           score += 10;
-          document.getElementById("scoreVal").innerText = score;
-          coins.splice(i, 1);
-          i--;
-          continue;
-        }
-
-        if (c.y > canvas.height + 20) {
           coins.splice(i, 1);
           i--;
         }
       }
 
-      // Update & Draw Hazards
       for (let j = 0; j < hazards.length; j++) {
         let h = hazards[j];
         h.y += h.speed;
-
         ctx.beginPath();
-        ctx.arc(h.x, h.y, h.size, 0, Math.PI * 2);
+        ctx.arc(h.x, h.y, 14, 0, Math.PI * 2);
         ctx.fillStyle = "#ef4444";
-        ctx.shadowColor = "#ef4444";
-        ctx.shadowBlur = 12;
         ctx.fill();
 
-        ctx.fillStyle = "#fff";
-        ctx.font = "bold 12px sans-serif";
-        ctx.textAlign = "center";
-        ctx.fillText("✖", h.x, h.y + 4);
-
-        if (
-          h.y + h.size >= basket.y &&
-          h.x >= basket.x &&
-          h.x <= basket.x + basket.width
-        ) {
-          gameOver();
+        if (h.y >= basket.y && h.x >= basket.x && h.x <= basket.x + basket.width) {
+          alert("Game Over! Final Score: " + score);
+          gameActive = false;
           return;
-        }
-
-        if (h.y > canvas.height + 20) {
-          hazards.splice(j, 1);
-          j--;
         }
       }
 
-      ctx.shadowBlur = 0;
-      animationFrameId = requestAnimationFrame(gameLoop);
-    }
+      ctx.fillStyle = "#fff";
+      ctx.font = "16px Orbitron";
+      ctx.fillText("Score: " + score, 20, 30);
 
-    drawLockedScreen();
+      requestAnimationFrame(gameLoop);
+    }
   </script>
 </body>
 </html>
